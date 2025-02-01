@@ -12,4 +12,4 @@ I will be doing problems on the following topics in 2025:
 - **Combinatorial Game Theory**
 - **Probability and Statistics**
 
-Huge thanks to A Mathematical Room for reviewing my solutions without asking anything in return.
+Huge thanks to A Mathematical Room for reviewing my solutions without asking for anything in return.
