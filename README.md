@@ -3,7 +3,7 @@
 I will be doing problems on the following topics in 2025:  
 
 - **Real and Complex Analysis**
-- **Classic and mathematical physics**
+- **Classical and mathematical physics**
 - **Database Management Systems (mainly normal forms, hashing and indices)**  
 - **Algorithms and Data Structures**  
 - **Discrete Mathematics**  
