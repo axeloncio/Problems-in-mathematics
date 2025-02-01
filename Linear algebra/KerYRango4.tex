@@ -1,0 +1,859 @@
+\documentclass{article}
+\usepackage{amsmath} % Required for mathematical symbols and fonts
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{amssymb} % Required for additional mathematical symbols
+\usepackage{amsthm}
+
+\newtheorem{lemma}{Lemma}
+\usepackage{mathtools}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\title{Linear mappings sheet IV}
+\author{Gallo Tenis / to A Mathematical Room}
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \textit{Problems in linear algebra: problems from the books of Titu Andreescu ``Essential Linear Algebra'' and
+    Sheldon Axler ``Linear Algebra Done Right''. The topics of this week are
+    isomorphisms, change of bases, rank of a matrix and dual spaces.
+    }
+\end{center}
+\section*{Isomorphisms and invertibility}
+\begin{enumerate}
+        \item Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that the following are equivalent:
+
+        \begin{enumerate}
+            \item[(a)] $T$ is invertible.
+            \item[(b)] $T v_1, \dots, T v_n$ is a basis of $V$ for every basis $v_1, \dots, v_n$ of $V$.
+            \item[(c)] $T v_1, \dots, T v_n$ is a basis of $V$ for some basis $v_1, \dots, v_n$ of $V$.
+        \end{enumerate}
+        $\textbf{Solution.}$
+        (a) $\implies$ (b)
+        \item Suppose $V$ is finite-dimensional, $U$ is a subspace of $V$, and $S \in \mathcal{L}(U, V)$. 
+        Prove that there exists an invertible linear map $T$ from $V$ to itself such that $T u = S u$ for every $u \in U$ 
+        if and only if $S$ is injective.\\
+        $\textbf{Solution.}$ For the direct implication, if $T$ is invertible, then it is injective,
+        The restriction of $T$ to a subset $U$ will be injective, and will behave as expected.
+        The mapping will not be surjective, although this is not an issue.
+        
+        For the converse implication, if $S$ is injective, 
+        $U$ and Im $S$ are isomorphic.
+        Hence there exists an isomorphism $S':V\setminus U \to V\setminus$ Im $S$.
+        Build $T$ such that
+        \begin{center}
+            $Tv =
+            \begin{cases}
+                Sv & \text{ if } v\in U; \\
+                S'v & \text{ if } v\in V\setminus U
+            \end{cases}$.
+        \end{center}
+
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        $\textbf{(Idea of) Solution.}$
+        For the converse implication, if $S$ is injective, we first determine the amount of elements in the intersection
+        \begin{center}
+            $U \cap \text{Im }S =
+            \begin{cases}
+                \{0\};\\
+                \text{not only zero subspace of } U \text{ or Im }S;\\
+                \text{a subspace with the same dimension of }U \text{ and Im }S
+            \end{cases}$.
+        \end{center}
+        The first case implies that any basis of $U$ will not be able to span any vector of Im $S$,
+        the second case implies that there exists a basis of $U$ that spans some vectors of Im $S$,
+        and the last one implies that a basis of $U$ will also be a basis for Im $S$.
+        For the third implication there is the identity map, that will do the job of changing any vector of $U$ to its corresponding
+        vector of Im $S$, as both spaces have same dimension ($\ker S = \{0\}$).
+        \begin{center}
+            $u_1 \mapsto Tu_1, \dots, u_n \mapsto Tu_n$.
+        \end{center}
+        Then, extending this map to $V$:
+        \begin{center}
+            $v_1 \mapsto Tv_1, \dots, u_1 \mapsto Tu_1, \dots, u_n \mapsto Tu_n,\dots, v_m \mapsto Tv_m$.
+        \end{center}
+        Doing the same reasoning as for the direct implication.
+
+        For the second case, let $\mathcal{B}$ be a base for $U$, and let $\mathcal{C}$ be a base for Im $S$.
+        Consider the subspace $W \subseteq V,$ $W=$ span($\mathcal{B}\cup \mathcal{C}$),
+        such that $W = U \oplus$ Im $S$. Let $\varphi_U: W \to U$ be defined as a projection mapping, that is, when
+        valued at some $w \in W$, will output the only $u \in U$ such that for some $x\in$ Im $S$:
+        $x = u - w$.
+        Define $\varphi_{\text{Im }S}: W \to \text{Im }T$ the same way, but interchanging $x$ with $u$.
+        A map $T: W \to W$ will be
+        \begin{center}
+            $Tw = \begin{cases}
+                \varphi_U(w) & \text{ if } w\in U;\\
+                \varphi_{\text{Im }S }(w) & \text{ if } w\in \text{Im }S
+            \end{cases}$.
+        \end{center}
+        For $w\in U$, $Tw$ will be itself as $u = x + 0$. Similarly for $x \in$ Im $S$.
+        Then we can add linearly independent vectors to $\mathcal{B}$ and $\mathcal{C}$.
+
+        (Can we finish up this idea? I find it hard to assume both bases will always be linearly independent, besides, the idea turned out too complex.)
+        \item Suppose that $W$ is finite-dimensional and $S, T \in \mathcal{L}(V, W)$. Prove that $\operatorname{null} S = \operatorname{null} T$ if and only if there exists an invertible $E \in \mathcal{L}(W)$ such that $S = ET$.\\
+        $\textbf{Solution.}$ Let $k$ be the dimension of $\ker T$, let $n$ be the dimension of $V$ and $m$ be the dimension of $W$. Since $\ker T = \ker S$ then, by the rank-nullity theorem, dim Im $T$ = dim Im $S$, as the input space is the same for both mappings.
+        Let $\mathcal{B}$ be a basis of $V$ such as 
+        \begin{center}
+            $\{v_1, \dots, v_{n-k}, \dots, v_{n}\}$ 
+        \end{center}
+        Where the vectors $v_{n-k}, \dots, v_{n}$ are those of a basis of $\ker T$ and $\ker S$.
+        Let $\mathcal{C}$ and $\mathcal{D}$ be bases of $W$ containing the bases of Im $T$ and Im $S$ respectively
+        in a way such as $\{w_1, \dots, w_{n-k}, \dots, w_m\}$, where $w_1, \dots, w_{n-k}$ are vectors from Im $T$ or Im $S$.
+        Let the matrices $M(T)$ and $M(S)$ be associated to $T$ and $S$ respectively.
+        Consider $Id: W_{\mathcal{C}} \to W_{\mathcal{D}}$, where $Id((w_i)_{\mathcal{C}}) = (w_i)_{\mathcal{D}}$ for vectors $w_i$ of their respective bases;
+        and $1\leq i \leq n-k$.
+        We have the following diagram
+        \begin{center}
+        \begin{tikzcd}
+            V_{\mathcal{B}} \arrow[rrdd, "S"'] \arrow[rr, "T"] &  & W_{\mathcal{C}} \arrow[dd]                       \\
+                                                            &  &                                                  \\
+                                                        &  & W_{\mathcal{D}} \arrow[uu, "Id_{\mathcal{DC}}"']
+        \end{tikzcd}
+        \end{center}
+        We see that $E = Id_{\mathcal{DC}}$. So $T = E\circ S$, thus $S = E^{-1}\circ T = Id_{\mathcal{CD}} \circ T$.
+        Reciprocally, if there exists an invertible mapping $E \in \mathcal{L}(W)$ such that $ET = S$, the matrix $M(E)$ will be invertible,
+        then it will be square, and its rank will be $\dim W$. A null column $C_j$ of $M(S)$ (for some basis of $W$) will be given by
+        \begin{center}
+            $C_j = M(E)_{\cdot 1}M(T)_{1j} + \dots + M(E)_{\cdot m}M(T)_{mj} = O_{\cdot j}$
+        \end{center}
+        Where each column of $M(E)$ is linearly independent (since its rank its $m$). Thus, the entries of the $j$th column of $M(T)$ must be zero,
+        thus, the column itself its zero.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Suppose that $V$ is finite-dimensional and $S, T \in \mathcal{L}(V, W)$. Prove that $\operatorname{range} S = \operatorname{range} T$ if and only if there exists an invertible $E \in \mathcal{L}(V)$ such that $S = TE$.\\
+        $\textbf{(Idea of) Solution.}$ There is, most likely, an analogous reasoning to that of the previous problem, but I will provide a solution using a concept of the book (column rank and column-row factorization) where I got the problem from (Linear Algebra Done Right).
+
+        Let $n$ be the dimension of $V$, and let $m$ be the dimension of $W$. 
+        Let $M(T)$ and $M(S)$ be the matrices associated to each mapping, the choosen bases do not matter yet.
+
+        As $\operatorname{Im }T = \operatorname{Im }S$, then $\dim \operatorname{Im }T = \dim \operatorname{Im }S$, the column rank $r$ of $M(T)$ is equal to the column rank of $M(S)$.
+        Thus, let $\{C_{\cdot 1}, \dots, C_{\cdot n}\}$ be each column of $M(T)$, and let $\{D_{\cdot 1},\dots, D_{\cdot n}\}$ be each column of $M(S)$.
+
+        From these columns we can derive linearly independent columns $\{C'_{\cdot 1}, \dots, C'_{\cdot r}\}$ for $M(T)$ and $\{D'_{\cdot 1}, \dots, D'_{\cdot r}\}$ for $M(S)$ (for example, by using the gaussian algorithm in the traspose of $M(T)$ and $M(S)$).
+        So let $M(T')$ be that matrix constructed by merging each column $C'_{\cdot i}$, for $1\leq i \leq r$:
+        \begin{center}
+            $ M(T') =
+            \begin{pmatrix}
+                \vdots & \cdots & \vdots \\
+                C'_{\cdot 1} & \cdots & C'_{\cdot r} \\
+                \vdots & \cdots & \vdots
+            \end{pmatrix}$
+        \end{center}
+        This matrix has size $m \times r$. Similarly for each column $D'_{\cdot i}$:
+        \begin{center}
+            $ M(S') =
+            \begin{pmatrix}
+                \vdots & \cdots & \vdots \\
+                D'_{\cdot 1} & \cdots & D'_{\cdot r} \\
+                \vdots & \cdots & \vdots
+            \end{pmatrix}$.
+        \end{center}
+        Note that if $m > r$, this would mean that $S', T': U \to W$ are not surjective. 
+        
+        We claim that both are, although, necessarily injective.
+        To prove this claim first note that the dimension of $U$ is $\dim \operatorname{Im }T = \dim \operatorname{Im }S$, so suppose there were
+        at least one (linearly independent) kernel vector of $T$ in $T'$, thus 
+        \begin{center}
+            $Tv = 0_V \implies T(v_\mathcal{B}) = 
+            \begin{pmatrix}
+                0_{11} \\
+                \vdots \\
+                0_{1m}
+            \end{pmatrix}$
+        \end{center}
+        for some basis of $W$. It is clearly not linearly independent, so we do not gather as a column for $M(T')$. (Does this argument suffices?)
+        An analogous reasoning is used to prove that $S'$ is injective.
+        
+        Let $\mathcal{U} = \{u_1,\dots, u_r\}$ be a basis for $U$, then, by the previous claim, $T'u_1, \dots, T'u_r$ will be a basis for $\operatorname{Im }T'$ and for $\operatorname{Im }S'$.
+        As well as $S'u_1, \dots, S'u_r$: $\mathcal{D}$.
+        
+        Consider a basis for $V$ extending the basis of $U$: $\mathcal{A}$, and a basis for $W$ by extending $\mathcal{B}$ or $\mathcal{C}$,
+        we will get matrices for $T$ as
+        \begin{center}
+            $M_{\mathcal{AB}}(T)$ and $M_{\mathcal{AC}}(T)$
+        \end{center}
+        We can build a basis for $V$ in which $M(T')$ is a submatrix of $M(T)$
+        and even $M(S')$ will be a submatrix of $M(T)$. The way to make them is to take the union with
+        $n-r$ kernel basis vectors with $\mathcal{U}$, instead of linearly extending them, call this basis $\mathcal{A'}$.
+        Matrices will have the following shape:
+        \begin{center}
+            $M_{\mathcal{A'B}}(T) =
+            \begin{pmatrix}
+                M_{\mathcal{UB}}(T') & O_{n-r} \\
+                M_{\mathcal{UB}}(T') & O_{(n-r)(m-r)}
+            \end{pmatrix}$
+        \end{center}
+        We can make this matrix better, as it is injective, $T'$ will have a square submatrix of size $r$ contained in 
+        the first quadrant of $M_{\mathcal{A'B}(T)}$
+        \begin{center}
+            $M_{\mathcal{A'B}}(T) =
+            \begin{pmatrix}
+                M_{\mathcal{UB'}}(T') & O_{n-r} \\
+                O_{m-r} & O_{(n-r)(m-r)}
+            \end{pmatrix}$
+        \end{center}
+        Thus:
+        \begin{center}
+            $M_{\mathcal{A'B}}(T) =
+            \begin{pmatrix}
+                M_{\mathcal{UB'}}(T') \\
+                O_{m-r} 
+            \end{pmatrix}
+            I_{\max{n,m}} = M(T')I_{\max{n,m}}$
+        \end{center}
+
+        Then: $M(S') = M(T')P$. Moreover, by column-row factorization theorem
+        \begin{center}
+            $M(T) = M(T')R_T$ and $M(S) = M(S')R_S$
+        \end{center}
+        Where $R_T$ and $R_S$ are $r \times n$ matrices. Therefore:
+        \begin{center}
+            $M(S) = M(S')R_S = M(T)P$
+        \end{center}
+        (Can we end up this idea? This will anyways end up in a change of basis. If there is a diverse method let me know.)
+
+        $\textbf{Solution.}$
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Suppose $V$ and $W$ are finite-dimensional and $S, T \in \mathcal{L}(V, W)$. Prove that there exist invertible $E_1 \in \mathcal{L}(V)$ and $E_2 \in \mathcal{L}(W)$ such that $S = E_2 T E_1$ if and only if $\dim \operatorname{null} S = \dim \operatorname{null} T$.\\
+        $\textbf{Solution.}$
+        For the converse, we note that $\ker T$ is isomorphic to $\ker S$. And by rank-nullity theorem,
+        Im $T$ is isomorphic to Im $S$ as well. Moreover $V \setminus \ker T$ is isomorphic to $V \setminus \ker S$.
+        So the mapping $\operatorname{id}: V_{\mathcal{B}} \to V_{\mathcal{C}}$ can be decomposed as $\operatorname{id}$
+
+        \item Suppose $V$ is finite-dimensional and $T\colon V \to W$ is a surjective linear map of $V$ onto $W$. Prove that there is a subspace $U$ of $V$ such that $T|_U$ is an isomorphism of $U$ onto $W$.\\
+        $\textbf{Solution.}$ Let $n = \dim V$, $m = \dim W$. Since $T$ is surjective, the dimension of $W$ will be at most that of $V$.
+        If this is the case take $U$ as the whole $V$. 
+        
+        If the dimension of $W$ is strictly less than that of $V$, by the rank-nullity theorem,
+        there are $n-m$ kernel vectors. Take $\mathcal{B}$, a basis for $V$ containing a basis $\mathcal{K}$ of $\ker T$,
+        this basis can be constructed starting with $\mathcal{K}$ and linearly extending it to $\mathcal{B}$.
+        The subspace $U$ will be constructed as $\text{span} (\mathcal{B}\setminus \mathcal{K})$,
+        and for any vector $u \in U$, $Tu \neq 0_W$.
+        The dimension of $U$ will be $n-(n-m) = m$, meaning that $U$ and $W$ are isomorphic.
+
+        Lastly, recall that dim Im $T = \dim W$, then $\dim$ Im $T = \dim U$. Let $T_{\restriction U}: U \to W$
+        be $T$ restricted to $U$, since $Tu \neq 0_W$ for any $u \in U$, this mapping is injective. 
+        Therefore, by rank-nullity, again, 
+        \begin{center}
+            $\dim \text{Im } T_{\restriction U} = \dim U = \dim \text{Im } T = \dim W$.
+        \end{center}
+        Thus, $T_{\restriction U}$ is surjective, and since it is injective,
+        will also make an isomorphism between $U$ and $W$.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item Suppose $V$ and $W$ are finite-dimensional and $U$ is a subspace of $V$. Let 
+        \[
+        \mathcal{E} = \{ T \in \mathcal{L}(V, W) \colon U \subseteq \operatorname{null} T \}.
+        \]
+        \begin{enumerate}
+            \item[(a)] Show that $\mathcal{E}$ is a subspace of $\mathcal{L}(V, W)$.
+            \item[(b)] Find a formula for $\dim \mathcal{E}$ in terms of $\dim V$, $\dim W$, and $\dim U$.
+        \end{enumerate}
+        $\textbf{Solution.}$ (a) This part is straightforward, take $0_{\mathcal{E}}$ as the null mapping $T = O$.
+        The sum of mappings restricted to some $U$ containing all vectors of their kernel
+        will also have the vectors of $U$ as it kernel. And the same goes for multiplication by a scalar.
+
+        (b) Let $n = \dim V$, $m = \dim W$. Since $\mathcal{L}(V,W)$ is isomorphic to $\mathbb{F}^{n,m}$ by the matrix mapping $M$,
+        and $\mathcal{E}$ is a subspace of it, we will have an isomorphism to some subspace $\mathbb{F}^{p,q}$ with dimension $p \times q$ of $\mathbb{F}^{n,m}$:
+        $M: \mathcal{E} \to \mathbb{F}^{p,q}$ (note it is the same mapping $M$).
+        
+        Let $T \in \mathcal{E}$, its associated matrix $M(T)$ will have at least one null column for some basis $\mathcal{B}$ of $V$
+        (it is not immediately obvious that a null column will appear for any basis of $V$, but it is certain that there exists, for any mapping $T \in \mathcal{E}$, at least one since dim Im $T$ = rank $M(T) \leq \dim V$).
+        So the dimension of $\mathcal{E}$ will be given from those matrices that have $\dim U$ null columns for some basis $\mathcal{B}$.
+        Therefore: $\dim \mathcal{E} = (\dim(V)-\dim(U))\dim W$.
+        
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Suppose $V$ is finite-dimensional and $S, T \in \mathcal{L}(V)$. Prove that 
+        \[
+        ST \text{ is invertible } \iff S \text{ and } T \text{ are invertible.}
+        \]
+        $\textbf{First Solution.}$ This first solution involves determinants and it is straightforward,
+        I will provide a second solution, as the author supposedly intended a solution without involving them.
+
+        Since $ST$ is invertible, $\det (M(S)M(T)) \neq 0$, thus $\det(M(S))\det(M(T)) \neq 0$, this implies that $\det(M(S)) \neq 0$ and $\det(M(T)) \neq 0$.
+        This proves that $S$ and $T$ are invertible.
+
+        Conversely, if $S$ and $T$ are invertible, $\det(M(S)) \neq 0$, $\det(M(T))\neq 0$, thus $\det (M(ST)) = \det (M(S)M(T)) = \det (M(S))\det(M(T)) \neq 0$, this means that $ST$ is invertible.
+        
+        $\textbf{Second Solution.}$
+        
+        \item Suppose $V$ is finite-dimensional and $S, T, U \in \mathcal{L}(V)$ and $STU = I$. Show that $T$ is invertible and that $T^{-1} = US$.
+        
+        \item Show that the result in Exercise 12 can fail without the hypothesis that $V$ is finite-dimensional.
+        
+        \item Prove or give a counterexample: If $V$ is a finite-dimensional vector space and $R, S, T \in \mathcal{L}(V)$ are such that $RST$ is surjective, then $S$ is injective.
+        
+        \item Suppose $T \in \mathcal{L}(V)$ and $v_1, \dots, v_m$ is a list in $V$ such that $T v_1, \dots, T v_m$ spans $V$. Prove that $v_1, \dots, v_m$ spans $V$.
+        
+        \item Prove that every linear map from $\mathbb{F}^{n,1}$ to $\mathbb{F}^{m,1}$ is given by a matrix multiplication. In other words, prove that if $T \in \mathcal{L}(\mathbb{F}^{n,1}, \mathbb{F}^{m,1})$, then there exists an $m \times n$ matrix $A$ such that $T x = A x$ for every $x \in \mathbb{F}^{n,1}$.
+        
+        \item Suppose $V$ is finite-dimensional and $S \in \mathcal{L}(V)$. Define $\mathcal{A} \in \mathcal{L}(\mathcal{L}(V))$ by $\mathcal{A}(T) = ST$ for $T \in \mathcal{L}(V)$.
+        \begin{enumerate}
+            \item[(a)] Show that $\dim \operatorname{null} \mathcal{A} = (\dim V)(\dim \operatorname{null} S)$.
+            \item[(b)] Show that $\dim \operatorname{range} \mathcal{A} = (\dim V)(\dim \operatorname{range} S)$.
+        \end{enumerate}
+        
+        \item Show that $V$ and $\mathcal{L}(\mathbb{F}, V)$ are isomorphic vector spaces.
+        
+        \item Suppose $V$ is finite-dimensional and $T \in \mathcal{L}(V)$. Prove that $T$ has the same matrix with respect to every basis of $V$ if and only if $T$ is a scalar multiple of the identity operator.
+        
+        \item Suppose $q \in \mathcal{P}(\mathbb{R})$. Prove that there exists a polynomial $p \in \mathcal{P}(\mathbb{R})$ such that
+        \[
+        q(x) = (x^2 + x)p''(x) + 2x p'(x) + p(3)
+        \]
+        for all $x \in \mathbb{R}$.
+        
+        \item Suppose $T \in \mathcal{L}(V)$ and $v_1, \dots, v_n$ is a basis of $V$. Prove that
+        \[
+        \mathcal{M}(T, (v_1, \dots, v_n)) \text{ is invertible } \iff T \text{ is invertible.}
+        \]
+        
+        \item Suppose that $u_1, \dots, u_n$ and $v_1, \dots, v_n$ are bases of $V$. Let $T \in \mathcal{L}(V)$ be such that $Tv_k = u_k$ for each $k = 1, \dots, n$. Prove that
+        \[
+        \mathcal{M}(T, (v_1, \dots, v_n)) = \mathcal{M}(I, (u_1, \dots, u_n), (v_1, \dots, v_n)).
+        \]
+        
+        \item Suppose $A$ and $B$ are square matrices of the same size and $AB = I$. Prove that $BA = I$.
+        
+        \item Let $V$ be a vector space over a field $\mathbb{F}$ of dimension $n$. Let $T \colon V \to V$ be a projection (recall that this is a linear map such that $T \circ T = T$).
+
+        \begin{enumerate}
+            \item[(a)] Prove that $V = \ker(T) \oplus \operatorname{Im}(T)$.
+            \item[(b)] Prove that there is a basis of $V$ in which the matrix of $T$ is
+            \[
+            \begin{pmatrix}
+            I_i & 0 \\
+            0 & O_{n-i}
+            \end{pmatrix}
+            \]
+            for some $i \in \{0, 1, \dots, n\}$.
+        \end{enumerate}
+        $\textbf{Solution.}$ (a) First we prove that $\ker T$ $\cap$ Im $T = \{0\}$.
+        Suppose that there exists some linearly independent vector $v$ of $V$ such that 
+        $Tv = 0$ and $v = Tu$ for some $u \in V$. Then
+        \begin{center}
+            $Tv = (T\circ T) u = Tu = 0$.
+        \end{center}
+        Then $u \in \ker T$, and $Tu \in \ker T$ as well. So we conclude that $v = Tu = 0$; a contradiction, since $v$ is linearly independent.
+
+        The second step is to prove that there exists an unique decomposition of $v$ as a sum of vectors of $\ker T$ and Im $T$.
+        For the existence part, since we have already proved that $\ker T \cap$ Im $T = \{0\}$,
+        suffices to notice that the intersection between their bases is null, so the union of them will form a basis for $V$, by the rank-nullity theorem.
+
+        For the uniqueness part, suppose that for some $v \in V$, $v = k + Tu$ and $v = k' + Tu'$, for
+        $k, k' \in \ker T$ and $Tu, Tu' \in $ Im $T$. Thus
+        \begin{center}
+            $k + Tu = k' + Tu'$
+        \end{center}
+        Taking $T$ in both sides (both terms are in $V$, so it is OK)
+        \begin{center}
+            $T(k + Tu) = T(k' + Tu')$
+        \end{center}
+        \begin{center}
+            $(T\circ T)u = (T\circ T)u'$
+        \end{center}
+        \begin{center}
+            $Tu = Tu'$.
+        \end{center}
+        So these both vectors of Im $T$ are the same ones. We then conclude, from the first equation that $k = k'$.
+
+        (b) This matrix is constructed the same way to that of problem 2 of section 2 of ``Kernel, range and matrices sheet'', where $i$ depends on the dimension of the image of $T$.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Let $V$ be a vector space over $\mathbb{C}$ or $\mathbb{R}$ of dimension $n$. Let $T \colon V \to V$ be a symmetry (that is, a linear transformation such that $T \circ T = \operatorname{id}$ is the identity map of $V$).
+
+        \begin{enumerate}
+            \item[(a)] Prove that $V = \ker(T - \operatorname{id}) \oplus \ker(T + \operatorname{id})$.
+            \item[(b)] Deduce that there exists $i \in [0, n]$ and a basis of $V$ such that the matrix of $T$ with respect to this basis is
+            \[
+            \begin{pmatrix}
+            I_i & 0 \\
+            0 & -I_{n-i}
+            \end{pmatrix}.
+            \]
+        \end{enumerate}
+        $\textbf{First Solution.}$
+        This solution uses eigenspaces, but I do not think the author intended their use yet, so I will provide another solution
+        without involving them.
+
+        The following lemma will be handful to prove the desired results.
+        \begin{lemma}
+            The matrix of a symmetric operator $T: V\to V$, over a finite dimensional $\mathbb{C}-$vector space with some basis $\mathcal{B}$,
+            is a symmetric matrix.
+        \end{lemma}
+        $\textbf{Proof.}$
+        Let $\mathcal{B}$ be a basis for $V$, since $T \circ T = \text{id}$, the equation $M_{\mathcal{B}}(T)M_{\mathcal{B}}(T) = I_n$ will hold.
+        Let $a_{ij}$ be the $ij-$th entry of $M(T)$, hence
+        \begin{center}
+            $\displaystyle \sum_{k=1}^{n} a_{ik}a_{kj} = \delta_{ij}$
+        \end{center}
+        so if $i \neq j$, 
+
+
+        $\textbf{Second Solution.}$
+        (a) Let $P := \frac{1}{2}(\operatorname{id}-T)$, and $Q := \frac{1}{2}(\operatorname{id} + T)$.
+        These two mappings are projections from $V$ to $V$ (clearly). To prove this, using the fact that $\mathcal{L}(V)$ is a vector space itself
+        \begin{center}
+            $\displaystyle P^2 = \frac{1}{2}(\operatorname{id} - T)\frac{1}{2}(\operatorname{id} - T) = \frac{1}{4}(\operatorname{id} - T)(\operatorname{id} - T)$
+        \end{center}
+        \begin{center}
+            $\displaystyle = \frac{1}{4}(\operatorname{id} - T)(\operatorname{id} - T) = \frac{1}{4}(\operatorname{id} - T - T + T^2)$
+        \end{center}
+        \begin{center}
+            $\displaystyle = \frac{1}{4}(\operatorname{id} - T - T + T^2) = \frac{1}{4}(2\operatorname{id} - 2T) = P$
+        \end{center}
+        Similar procedure for $Q$:
+        \begin{center}
+            $\displaystyle Q^2 = \frac{1}{4}(\operatorname{id} + T)(\operatorname{id} + T) = \frac{1}{4}(\operatorname{id} + 2T + T^2) = \frac{1}{4}(2\operatorname{id} + 2T) = Q$.
+        \end{center}
+        The mapping $P + Q$ is the identity map, and their composition $P \circ Q = Q \circ P$ is the null map.
+        We then claim that for any vector $v \in V$, $v = Pu + Qw$, and furthermore, that this decomposition is unique (meaning that $V = \text{Im }P \oplus \text{Im }Q$).
+
+        To prove this claim, note that the first condition is obvious since $P + Q = \operatorname{id}$, so remains showing that
+        $\text{Im } P \cap \text{Im } Q = \{0_V\}$. Assume that there exists a vector $v \in V$ belonging to both $\operatorname{Im }P$ and $\operatorname{Im }Q$, thus,
+        \begin{center}
+            $v = P(u)$, and $v = Q(w)$.
+        \end{center}
+        \begin{center}
+            $\implies P(u) = Q(w)$
+        \end{center}
+        \begin{center}
+            $\implies P(u) = (P\circ Q)(w) = 0_V$
+        \end{center}
+        and similarly
+        \begin{center}
+            $Q(u) = (P\circ Q)(w) = 0_V$
+        \end{center}
+        So $v = 0_V$. This proves our claim. Using the last problem we also know that $V = \ker P \oplus \operatorname{Im }P$ and $V = \ker Q \oplus \operatorname{Im }Q$.
+        So we get three different expressions for $V$ counting also that of $V = \operatorname{Im }P \oplus \operatorname{Im }Q$.
+        Without loss of generality assume now that $\ker P = \operatorname{Im }Q$, and $\ker Q = \operatorname{Im }P$.
+        This means that $V = \ker Q \oplus \ker P$ as well.
+        Let $v \in \ker P$, thus
+        \begin{center}
+            $\displaystyle Pv = \frac{1}{2}(v - Tv) = 0$
+        \end{center}
+
+        \begin{center}
+            $\displaystyle \iff 0 = Tv - v$
+        \end{center}
+        so, this shows the equivalence between $\ker P$ and $\ker (T - \operatorname{id})$.
+        Doing the same for $Q$, we get that:
+        \begin{center}
+            $\displaystyle Qv = 0 \iff v + Tv = 0 \iff Tv + v = 0$.
+        \end{center}
+        So we get that $V = \ker P \oplus \ker Q \iff V = \ker(T- \operatorname{id}) \oplus \ker(T + \operatorname{id})$.
+
+        (b) As $T\circ T = \operatorname{id}$, we get that $(M_\mathcal{BB}(T))^2 = I_n$ for a base $\mathcal{B}$ of $V$.
+        Then, $M_\mathcal{BB}(T) = M_\mathcal{BB}(T)^{-1}$, this reduces the threshold of matrices as it only can be diagonal.
+        
+        Now, we would like to have that a basis for $V$ were the union of the bases of $\ker(T-\operatorname{id})$ and $\ker(T + \operatorname{id})$.
+        Consider the mapping $T - \operatorname{id}$, this mapping will be zero if and only if $Tv = v$, so any vector of the basis of $\ker(T-\operatorname{id})$
+        will satisfy that $Tv = v$, similarly with $T + \operatorname{id}$, we will get that vectors of the basis of $\ker (T + \operatorname{id})$ are those in which
+        $Tv = -v$.
+
+        Thus, let $\mathcal{B} = \{v_1, \dots, v_i\}$ be a basis for $\ker(T-\operatorname{id})$, and $\mathcal{C} = \{v_{i+1}, \dots, v_{n}\}$ be a basis for $\ker(T+\operatorname{id})$.
+        A basis for $V$ will be $\mathcal{D} = \mathcal{B} \cup \mathcal{C}$, and a basis for the arrival $V$ will be $\mathcal{D}$ as well.
+        This builds up the desired matrix.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Let \( V \) be the vector space of polynomials with complex coefficients whose degree does not exceed 3. Let \( T: V \to V \) be the map defined by 
+        \[
+        T(P) = P + P'.
+        \]
+        Prove that \( T \) is linear and find the matrix of \( T \) with respect to the basis \( 1, X, X^2, X^3 \) of \( V \).\\
+        $\textbf{Solution.}$
+        To prove this mapping is linear, let $c \in \mathbb{R}$ and let $P, Q$ be polynomials with complex coefficients whose degree does not exceed 3:
+        \begin{center}
+            $T(P+cQ) = (P + cQ) + (P + cQ)' = P + cQ + P' + cQ'
+            = P + P' + cQ + cQ' = T(P) + cT(Q)$
+        \end{center}
+        And note that if $P = c$, constant polynomial, $P' = 0$, in particular with $c = 0$.
+        The matrix for $T$ will be:
+        \begin{center}
+            $M(T) =
+            \begin{pmatrix}
+                1 & 1 & 0 & 0 \\
+                0 & 1 & 2 & 0 \\
+                0 & 0 & 1 & 3 \\
+                0 & 0 & 0 & 1 \\
+            \end{pmatrix}$.
+        \end{center}
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item \begin{enumerate}
+            \item[(a)] Find the matrix with respect to the canonical basis of the map which projects a vector \( v \in \mathbb{R}^3 \) to the \( xy \)-plane.
+            \item[(b)] Find the matrix with respect to the canonical basis of the map which sends a vector \( v \in \mathbb{R}^3 \) to its reflection with respect to the \( xy \)-plane.
+            \item[(c)] Let \( \theta \in \mathbb{R} \). Find the matrix with respect to the canonical basis of the map which sends a vector \( v \in \mathbb{R}^2 \) to its rotation through an angle \( \theta \), counterclockwise.
+        \end{enumerate}
+
+        \item Let \( V \) be a vector space of dimension \( n \) over \( F \). A \emph{flag} in \( V \) is a family of subspaces 
+        \[
+        V_0 \subset V_1 \subset \cdots \subset V_n
+        \]
+        such that \( \dim V_i = i \) for all \( i \in [0, n] \). Let \( T: V \to V \) be a linear transformation. Prove that the following statements are equivalent:
+        \begin{enumerate}
+            \item[(a)] There is a flag \( V_0 \subset \cdots \subset V_n \) in \( V \) such that \( T(V_i) \subset V_i \) for all \( i \in [0, n] \).
+            \item[(b)] There is a basis of \( V \) with respect to which the matrix of \( T \) is upper-triangular.
+        \end{enumerate}
+        $\textbf{Solution.}$ Since $V_0 \subset V_1 \subset \dots \subset V_n$, we can find a basis for any $V_k$ by extending one from $V_{k-1}$.
+        Call $\mathcal{B}_k$ a basis for $V_k$ that is (recursively) extended from $\mathcal{B}_{k-1}$.
+
+        For the direct implication, let us start with some fixed $k$.
+        Since $T(V_k) \subset V_k$, there exist at most $k-1$ basis vectors from $\mathcal{B}_k$ that form a basis for $T(V_k)$.
+        
+        Among these $k-1$ vectors it can occur that each one of these are of $\mathcal{B}_{k-1}$, or that 
+        within these, there is the only vector $v_k \in \mathcal{B}_k \setminus \mathcal{B}_{k-1}$, and the other
+        $k-2$ are within $\mathcal{B}_{k-1}$.
+
+        For the first case, for any $k$, we can choose as a basis for $T(V_k)$ exactly $\mathcal{B}_{k-1}$.
+
+        Clearly $T(V_{k-1})$ is a subspace of $T(V_k)$ since $\mathcal{B}_{k-1}$ is gotten by linearly extending $\mathcal{B}_{k-2}$.
+        It follows that $T(V_{k-1}) \subset T(V_{k})$ for any $k \geq 1$.
+        
+        Let $v_k \in \mathcal{B}_k \setminus \mathcal{B}_{k-1}$ for any $1 \leq k \leq n$, this vector will not be in any basis of $T(V_j)$ for $1 \leq j < k$ by construction, but will be a basis vector only for $V_k$.
+        Its image $Tv_k \in T(V_k)$ will result in the following column vector:
+        \begin{center}
+            $\begin{pmatrix}
+                a_{1k} \\
+                \vdots \\
+                a_{(k-1)k} \\
+                0_{kk}
+            \end{pmatrix}$
+        \end{center}
+        As it is spanned by $k-1$ basis vectors from $\mathcal{B}_{k-1}$.
+
+        So, gathering the $k$ basis vectors of $V$ the matrix is constructed, note that its principal diagonal is zero, but it is OK since for being
+        upper triangular this does not matter.
+
+        For the converse implication let $A \in M_{n}(\mathbb{F})$ be an upper triangular matrix.
+        We see that the rank $m$ of $A$ is $n-1 \leq m \leq n$. Let $\mathcal{B} = \{v_1, \dots, v_n\}$ be a basis for $V$.
+        
+        Consider the subspaces $V_k := \left\langle v_1, \dots, v_k\right\rangle $. By induction on $k$ we will prove 
+        that $T(V_k) \subset V_k$.
+        The intuition is that the matrix 
+        \begin{center}
+            $A = \begin{pmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n} \\
+                0       & a_{22} & \cdots & a_{2n} \\
+                \vdots & \ddots & \ddots & \vdots \\
+                0 & \cdots & 0 & a_{nn}
+            \end{pmatrix}$
+        \end{center}
+        since input and output bases are the same, represents that the mapping of, say $v_k$ spans itself ``plus'' the $k-1$ earlier ones.
+        We will see that considering subspaces while cumulating basis vectors of $V$: $\left\langle v_1\right\rangle$, $\left\langle v_1, v_2\right\rangle$, and so on;
+        the dimension of their image will be less than or equal themselves (depending mainly on the zeroes in the diagonal). 
+
+        When $k = 1$ we have that for $V_1 = \left\langle v_1 \right\rangle$, $T(V_1) = \lambda a_{11} v_1 \in \left\langle v_1\right\rangle$.
+        
+        When $k = 2$ we have that for $V_2 = \left\langle v_1, v_2 \right\rangle$, $T(V_2) = \left\langle T(v_1), T(v_2)\right\rangle = \lambda a_{11}v_1 + \delta(a_{12}v_1 + a_{22}v_2)
+        = b_1v_1 + b_2v_2 \in V_2$.
+
+
+        For the inductive thesis, we will show that for $V_{k+1} := \left\langle v_1, \dots, v_k, v_{k+1}\right\rangle$ 
+        it follows that $T(V_{k+1}) \subseteq V_{k+1}$.
+        Since 
+        \begin{center}
+            $T(V_{k+1}) = \left\langle T(v_1), \dots, T(v_k), T(v_{k+1})\right\rangle = T(V_k) + \left\langle T(v_{k+1})\right\rangle =
+            T(V_k)+ \lambda \displaystyle \sum_{i=1}^{k+1}a_{i(k+1)}v_{i}$,
+        \end{center}
+        then
+        \begin{center}
+            $\displaystyle T(V_{k+1}) = \sum_{i=1}^{k}b_{i}v_{i} + \lambda \left(\sum_{i=1}^{k+1}a_{i(k+1)}v_{i}\right)$
+        \end{center}
+        \begin{center}
+            $\displaystyle = \sum_{i=1}^{k}b_{i}v_{i} + \left(\sum_{i=1}^{k+1}c_{i}v_{i}\right) = \sum_{i=1}^{k+1}d_iv_i \in \left\langle v_1, \dots, v_{k+1}\right\rangle = V_{k+1}$.
+        \end{center}
+
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Let \( V \) be a vector space over a field \( F \), and let \( T_1, \dots, T_n: V \to V \) be linear transformations. Prove that 
+        \[
+        \bigcap_{i=1}^n \ker(T_i) \subseteq \ker\left(\sum_{i=1}^n T_i\right).
+        \]
+        $\textbf{(Idea of) Solution.}$ Using $Grassmann$ $formula$ and rank-nullity theorem we get some interesting inequalities.
+        By arguing by induction on $n$, for the base case $n = 1$ we get the trivial inclusion
+        $\ker (T_1) \subseteq \ker (T_1)$.
+        Now, suppose that for any $k \geq 1$ the inclusion
+        \[
+            \bigcap_{i=1}^k \ker(T_i) \subseteq \ker\left(\sum_{i=1}^k T_i\right).
+        \]
+        holds. In the right hand side we note that despite having a sum in it, the dimension of $V$ will be invariant anyways,
+        this means that
+        \begin{center}
+            $\displaystyle 
+            \dim V = \dim \ker T_i + \dim \text{Im } T_i = \dim \ker\left(\sum_{i=1}^k T_i\right) + \dim \text{Im }\left( \sum_{i=1}^{k} T_i\right)$.
+        \end{center}
+        Call $S$ the sum $\sum_{i=1}^k T_i$. Note that
+        \begin{center}
+            $\dim \ker S + \dim \text{Im }S = \dim \ker T_i + \dim \text{Im } T_i \geq 0$
+        \end{center}
+        Thus:
+        \begin{center}
+            $\dim \ker S - \dim \ker T_i = \dim \text{Im } T_i - \dim \text{Im }S$ $(\ast)$
+        \end{center}
+        Then, using Grassmann formula:
+        \begin{center}
+            $\dim (\ker T_i + \ker S) = \dim \ker T_i + \dim \ker S - \dim (\ker T_i \cap \ker S) \geq 0$.
+        \end{center}
+        Which implies that
+        \begin{center}
+            $\dim \ker T_i + \dim \ker S \geq \dim (\ker T_i \cap \ker S)$ $(\ast \ast)$.
+        \end{center}
+        Summing $(\ast)$ and $(\ast \ast)$
+        \begin{center}
+            $\dim \ker S \geq \dim \ker T_i + (\dim \text{Im } T_i - \dim \text{Im } S)$.
+        \end{center}
+        Then:
+        \begin{center}
+            $\dim \ker S \geq \dim (\ker T_i \cap \ker S) + (\dim \text{Im } T_i - \dim \text{Im } S)$.
+        \end{center}
+        This, although, does still not prove the desired result, but holds for any $k \geq 1$. It could occur that the right hand side were negative.
+        Despite this, by our inductive hypothesis, we can say that $\dim \ker S \geq \dim (\bigcap_{i=1}^{k} \ker T_i)$.
+        For the inductive thesis, when $n = k+1$, we shall prove
+        \begin{center}
+            \[
+                \bigcap_{i=1}^{k+1} \ker(T_i) \subseteq \ker (S).
+            \]
+        \end{center}
+        (This idea is interesting, but I do not think that it can be pushed to get the desired result, although it may be true that the result holds for $n = k+1$,
+        $-$that $\dim \ker S \leq \dim \ker (\bigcap_{i=1}^{k+1} \ker(T_i)$)$-$
+        this does not tell us anything about the inclusion of the subspaces, we can still have them disjoint except for zero.)
+
+        $\textbf{Solution.}$
+        Let $\displaystyle v \in \bigcap_{i=1}^{n} \ker(T_i)$, we claim that this vector is also in $\displaystyle \ker\left(\sum_{i=1}^n T_i\right)$.
+        To prove this claim first note that any vector $v' \in \displaystyle \ker\left(\sum_{i=1}^n T_i\right)$ will satisfy:
+        \begin{center}
+            $T_1v' + \dots + T_nv' = 0_V$.
+        \end{center}
+        In particular, since $v$ is in each $\ker T_i$,
+        \begin{center}
+            $T_1v + \dots + T_nv = 0_V$, so $v \in \displaystyle \ker\left(\sum_{i=1}^n T_i\right)$.
+        \end{center}
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Let \( V \) be a vector space over a field \( F \), and let \( T_1, T_2: V \to V \) be linear transformations such that 
+        \[
+        T_1 \circ T_2 = T_1 \quad \text{and} \quad T_2 \circ T_1 = T_2.
+        \]
+        Prove that 
+        \[
+        \ker(T_1) = \ker(T_2).
+        \]
+        $\textbf{Solution.}$ Let $v \in \ker T_1$, we note that
+        \begin{center}
+            $T_1v = 0 \iff T_2(T_1v) = T_2v = 0$. (since any linear mapping applied to 0 is also 0)
+        \end{center}
+        This implies that $v \in \ker T_1 \iff v \in \ker T_2$. Similarly, let $u \in \ker T_2$
+        \begin{center}
+            $T_2u = 0 \iff T_1(T_2v) = T_1u = 0$.
+        \end{center}
+        So we conclude that $\ker T_1 = \ker T_2$.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Let \( V \) be a vector space over \( F \), and let \( T: V \to V \) be a linear transformation such that 
+        \[
+        \ker(T) = \ker(T^2) \quad \text{and} \quad \text{Im}(T) = \text{Im}(T^2).
+        \]
+        Prove that 
+        \[
+        V = \ker(T) \oplus \text{Im}(T).
+        \]
+        $\textbf{Solution.}$ We claim that $T$ is necessarily a projection. To prove this, assume that $T$ were not a projection.
+        Take $v \in V, v \neq 0$, then $Tv \neq T^2v$, let $u \in V$ such that $u = T^2v$.
+
+        As $u \in \operatorname{Im }T^2$, then $u \in \operatorname{Im }T$, this means that $u = Tv'$ for some $v' \in V$, suppose that $v' \neq v$.
+        Then it must hold that $Tv' = T^2v$, so $T$ is not injective.
+
+        Let $k \in \ker T$, such that $k \neq 0$, then $k \in \ker T^2$, thus $Tk = T^2k = 0$, which is a contradiction.
+
+        Then, the result yields by problem 21.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+        \item Let $V$ be a finite dimensional vector space. Let $T: V\to V$ be a linear
+        operator, and let $T^n: V \to V$ denote $T$ applied $n$ times. 
+        Prove that there exists an integer $N$ such that
+        \begin{center}
+            $V = \ker T^N \oplus$ Im $T^N$.
+        \end{center}
+        $\textbf{Solution.}$ First note that the kernel of a mapping is stable under $T$, only possibly increasing its dimension when applying $T$ again.
+        If it continues increasing when applying $T$, the resulting mapping will be the null mapping for some $N \geq 2$, which is a projection, leading to the result immediately.
+        
+        Else, if the dimension of both Im $T$ and $\ker T$ become stable, we claim that we would get, starting from a certain integer $j$
+        \begin{center}
+            $\ker T^j = \ker T^{j+1}$ and $\operatorname{Im} T^j = \operatorname{Im} T^{j+1}$.
+        \end{center}
+        Which would imply that $T$ becomes a projection starting from $j$ by the last problem, which also leads to the result immediately.
+        To prove this claim, note that $\ker T$ is actually stable under $T$, this means that for any $v \in \ker T$
+        \begin{center}
+            $v \in \ker T \implies v \in \ker T^2 \implies \dots \implies v \in \ker T^j$
+        \end{center}
+        in particular, when applying $T$ $j$ times to a basis $\mathcal{K}$ of $\ker T$, every vector of it 
+        will be basis vectors of $T^{j+1}$. Now as we assumed that $\dim \ker T^j = \dim \ker T^{j+1}$, $\mathcal{K}$ forms a basis for $\ker T^{j}$ and $\ker T^{j+1}$,
+        which means that $\ker T^j = \ker T^{j+1}$.
+        In the case of Im $T$, we note that $V \setminus \ker T^j = V \setminus \ker T^{j+1} = \dots = V \setminus \ker T^{j+n}$,
+        hence, $\operatorname{Im }T$ will also become stable starting from $j$. This proves our claim.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+\end{enumerate}
+\section*{Rank of a matrix}
+    \begin{enumerate}
+        \item Let \( A, B \in M_3(F) \) be two matrices such that \( AB = O_3 \). Prove that 
+        \[
+        \min(\operatorname{rank}(A), \operatorname{rank}(B)) \leq 1.
+        \]
+
+        \item Let \( A \in M_3(\mathbb{C}) \) be a matrix such that \( A^2 = O_3 \).
+
+        \begin{enumerate}
+            \item[(a)] Prove that \( A \) has rank 0 or 1.
+            \item[(b)] Deduce the general form of all matrices \( A \in M_3(\mathbb{C}) \) such that \( A^2 = O_3 \).
+        \end{enumerate}
+
+        \item Find the rank of the matrix \( A = [\cos(i - j)]_{1 \leq i,j \leq n} \).
+
+        \item
+        \begin{enumerate}
+            \item[(a)] Let \( V \) be an \( n \)-dimensional vector space over \( F \), and let \( T : V \to V \) be a linear transformation. Let \( T^j \) be the \( j \)-fold iterate of \( T \) (so \( T^2 = T \circ T \), \( T^3 = T \circ T \circ T \), etc.). Prove that:
+            \[
+            \text{Im}(T^n) = \text{Im}(T^{n+1}).
+            \]
+            \textit{Hint:} Check that if \( \text{Im}(T^j) = \text{Im}(T^{j+1}) \) for some \( j \), then \( \text{Im}(T^k) = \text{Im}(T^{k+1}) \) for \( k \geq j \).
+            
+            \item[(b)] Let \( A \in M_n(\mathbb{C}) \) be a matrix. Prove that \( A^n \) and \( A^{n+1} \) have the same rank.
+        \end{enumerate}
+
+        \item Let \( A \in M_n(F) \) be a matrix of rank 1. Prove that:
+        \[
+        A^2 = \text{Tr}(A)A.
+        \]
+
+        \item Let \( A \in M_m(F) \) and \( B \in M_n(F) \). Prove that:
+        \[
+        \text{rank} \begin{bmatrix}
+        A & 0 \\
+        0 & B
+        \end{bmatrix} = \text{rank}(A) + \text{rank}(B).
+        \]
+
+        \item Prove that for any matrices \( A \in M_{n,m}(F) \) and \( B \in M_m(F) \), we have:
+        \[
+        \text{rank} \begin{bmatrix}
+        I_n & A \\
+        0 & B
+        \end{bmatrix} = n + \text{rank}(B).
+        \]
+    
+        \item Let \( n > 2 \) and let \( A = [a_{ij}] \in M_n(\mathbb{C}) \) be a matrix of rank 2. Prove the existence of real numbers \( x_i, y_i, z_i, t_i \) for \( 1 \leq i \leq n \) such that for all \( i, j \in \{1, 2, \dots, n\} \), we have:
+        \[
+        a_{ij} = x_i y_j + z_i t_j.
+        \]
+    
+        \item Let \( A = [a_{ij}]_{1 \leq i,j \leq n} \) and \( B = [b_{ij}]_{1 \leq i,j \leq n} \) be complex matrices such that:
+        \[
+        a_{ij} = 2i j - b_{ij}
+        \]
+        for all integers \( 1 \leq i, j \leq n \). Prove that:
+        \[
+        \text{rank}(A) = \text{rank}(B).
+        \]
+
+        \item Let \( A \in M_n(\mathbb{C}) \) be a matrix such that \( A^2 = A \), i.e., \( A \) is the matrix of a projection. Prove that:
+        \[
+        \text{rank}(A) + \text{rank}(I_n - A) = n.
+        \]
+
+        \item Let \( n > k \) and let \( A_1, \dots, A_k \in M_n(\mathbb{R}) \) be matrices of rank \( n - 1 \). Prove that \( A_1 A_2 \cdots A_k \) is nonzero.  
+        \textit{Hint:} Using Sylvester’s inequality, prove that:
+        \[
+        \text{rank}(A_1 \cdots A_j) \geq n - j \quad \text{for } 1 \leq j \leq k.
+        \]
+
+        \item Let \( A \in M_n(\mathbb{C}) \) be a matrix of rank at least \( n - 1 \). Prove that:
+        \[
+        \text{rank}(A^k) \geq n - k \quad \text{for } 1 \leq k \leq n.
+        \]
+        \textit{Hint:} Use Sylvester’s inequality.
+
+        \item \begin{enumerate}
+            \item[(a)] Prove that for any matrix \( A \in M_n(\mathbb{R}) \), we have:
+            \[
+            \text{rank}(A) = \text{rank}(\prescript{\top}{}AA).
+            \]
+            \textit{Hint:} If \( X \in \mathbb{R}^n \) is a column vector such that \( \prescript{\top}{}A A X = 0 \), write \( \prescript{\top}{}X \prescript{\top}{}A A X = 0 \) and express the left-hand side as a sum of squares.
+    
+            \item[(b)] Let \( A = \begin{bmatrix} 1 & i \\ i & -1 \end{bmatrix} \). Find the rank of \( A \) and \( A^\top A \), and conclude that part (a) of the problem is no longer true if \( \mathbb{R} \) is replaced with \( \mathbb{C} \).
+        \end{enumerate}
+
+        \item Let \( A \) be an \( m \times n \) matrix with rank \( r \). Prove that there is an \( m \times m \) matrix \( B \) with rank \( m - r \) such that:
+        \[
+        B A = O_{m,n}.
+        \]
+
+        \item (Generalized inverses) Let \( A \in M_{m,n}(F) \). A generalized inverse of \( A \) is a matrix \( X \in M_{n,m}(F) \) such that:
+        \[
+        A X A = A.
+        \]
+        \begin{enumerate}
+            \item[(a)] If \( m = n \) and \( A \) is invertible, show that the only generalized inverse of \( A \) is \( A^{-1} \).
+            \item[(b)] Show that a generalized inverse of \( A \) always exists.
+            \item[(c)] Give an example to show that the generalized inverse need not be unique.
+        \end{enumerate}
+    \end{enumerate}
+\section*{Duality}
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+\section*{Product and quotient of a vector space}
+    \begin{enumerate}
+        \item Let \( V \) be a finite-dimensional vector space over \( F \), and let \( W \subset V \) be a subspace. For a vector \( v \in V \), define 
+        \[
+        [v] = \{v + w : w \in W\}.
+        \]
+        Note that \( [v_1] = [v_2] \) if and only if \( v_1 - v_2 \in W \). Define the quotient space \( V / W \) to be
+        \[
+        V / W = \{[v] : v \in V\}.
+        \]
+        Addition and scalar multiplication in \( V / W \) are defined as follows:
+        \[
+        [u] + [v] = [u + v] \quad \text{and} \quad a[v] = [av],
+        \]
+        where \( a \in F \). It is known that these operations are well-defined and that \( V / W \), equipped with this structure, is a vector space.
+        
+        \begin{enumerate}
+            \item[(a)] Show that the map \( \pi: V \to V / W \) defined by \( \pi(v) = [v] \) is linear with kernel \( W \).
+            \item[(b)] Show that 
+            \[
+            \dim(W) + \dim(V / W) = \dim(V).
+            \]
+            \item[(c)] Suppose \( U \subset V \) is any subspace such that \( W \oplus U = V \). Show that the restriction \( \pi|_U: U \to V / W \) is an isomorphism, i.e., a bijective linear map.
+            \item[(d)] Let \( T: V \to U \) be a linear map, let \( W \subset \ker(T) \) be a subspace of \( V \), and let \( \pi: V \to V / W \) be the projection onto the quotient space. Show that there exists a unique linear map \( S: V / W \to U \) such that \( T = S \circ \pi \).
+        \end{enumerate}
+    \end{enumerate}
+\end{document}

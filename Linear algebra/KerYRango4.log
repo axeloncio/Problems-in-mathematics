@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.10.17)  1 FEB 2025 15:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.10.17)  2 FEB 2025 00:42
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/jeans/Desktop/Matemáticas/LaTeX/UllmanNormalization.tex
-(c:/Users/jeans/Desktop/Matemáticas/LaTeX/UllmanNormalization.tex
+**c:/Users/jeans/Desktop/Matemáticas/LaTeX/KerYRango4.tex
+(c:/Users/jeans/Desktop/Matemáticas/LaTeX/KerYRango4.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
 (C:\Users\jeans\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -404,8 +404,8 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count297
 \l__pdf_internal_box=\box65
-) (UllmanNormalization.aux)
-\openout1 = `UllmanNormalization.aux'.
+) (KerYRango4.aux)
+\openout1 = `KerYRango4.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
@@ -478,24 +478,49 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 31.
  [1
 
-{C:/Users/jeans/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}] [2{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}] [3] (UllmanNormalization.aux)
+{C:/Users/jeans/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathit.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathex.enc}] [2]
+Overfull \hbox (15.01352pt too wide) in paragraph at lines 144--146
+[]\T1/lmr/m/n/10 From these columns we can de-rive lin-early in-de-pen-dent columns $\OMS/lmsy/m/n/10 f\OML/lmm/m/it/10 C[]; [] ; C[]\OMS/lmsy/m/n/10 g$
+ []
+
+[3]
+Overfull \hbox (16.93726pt too wide) in paragraph at lines 179--181
+\OML/lmm/m/it/10 T[]u[]; [] ; T[]u[]$ \T1/lmr/m/n/10 will be a ba-sis for $[] \OML/lmm/m/it/10 T[]$ \T1/lmr/m/n/10 and for $[] \OML/lmm/m/it/10 S[]$\T1/lmr/m/n/10 . As well as $\OML/lmm/m/it/10 S[]u[]; [] ; S[]u[]$\T1/lmr/m/n/10 :
+ []
+
+[4] [5]
+Overfull \hbox (1.81386pt too wide) in paragraph at lines 287--290
+$[]$ \T1/lmr/m/n/10 This first so-lu-tion in-volves de-ter-mi-nants and it is straight-
+ []
+
+[6] [7] [8]
+Overfull \hbox (7.33414pt too wide) in paragraph at lines 403--406
+[]$[]$ \T1/lmr/m/n/10 Let $\OMS/lmsy/m/n/10 B$ \T1/lmr/m/n/10 be a ba-sis for $\OML/lmm/m/it/10 V$\T1/lmr/m/n/10 , since $\OML/lmm/m/it/10 T \OMS/lmsy/m/n/10 ^^N \OML/lmm/m/it/10 T \OT1/lmr/m/n/10 = []$\T1/lmr/m/n/10 , the equa-tion $\OML/lmm/m/it/10 M[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 T\OT1/lmr/m/n/10 )\OML/lmm/m/it/10 M[]\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 T\OT1/lmr/m/n/10 ) =
+ []
+
+[9] [10] [11] [12] [13]
+Overfull \hbox (15.7319pt too wide) in paragraph at lines 645--648
+[]$[]$ \T1/lmr/m/n/10 Let $\OML/lmm/m/it/10 v \OMS/lmsy/m/n/10 2 [] []\OT1/lmr/m/n/10 (\OML/lmm/m/it/10 T[]\OT1/lmr/m/n/10 )$\T1/lmr/m/n/10 , we claim that this vec-tor is also in $[] []$.
+ []
+
+[14] [15] [16] [17] [18] (KerYRango4.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 14967 strings out of 475248
- 310528 string characters out of 5757812
- 1929785 words of memory out of 5000000
- 36202 multiletter control sequences out of 15000+600000
+ 15086 strings out of 475248
+ 313321 string characters out of 5757812
+ 1934785 words of memory out of 5000000
+ 36321 multiletter control sequences out of 15000+600000
  617334 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,8n,97p,462b,275s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on UllmanNormalization.pdf (3 pages, 213493 bytes).
+ 84i,14n,97p,453b,1083s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy5.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on KerYRango4.pdf (18 pages, 316210 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
+ 149 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
