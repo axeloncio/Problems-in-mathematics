@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{amsmath} % Required for mathematical symbols and fonts
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{amssymb} % Required for additional mathematical symbols
+\usepackage{amsthm}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\title{Finite and infinite series sheet}
+\author{Gallo Tenis, CoGi / to A Mathematical Room}
+\begin{document}
+\maketitle
+
+\begin{center}
+    \textit{Problems on series and products over finite and infinite sets: books of Terence Tao's ``Analysis I'', Donald E. Knuth's ``The Art of Computer Programming''.
+    As well as problems of the Putnam Mathematical Competition and the International Math Olympiad.}
+\end{center}
+\section*{Convergence of series}
+\begin{enumerate}
+    \item Let \( \sum_{n=m}^{\infty} a_n \) be a formal series of real numbers. Then \( \sum_{n=m}^{\infty} a_n \) converges if and only if, for every real number \( \varepsilon > 0 \), there exists an integer \( N \geq m \) such that
+    \[
+    \left| \sum_{n=p}^{q} a_n \right| \leq \varepsilon \quad \text{for all } p,q \geq N.
+    \]
+    $\textbf{Solution.}$
+    \begin{enumerate}
+        \item[$(\implies)$] If $\sum_{n=m}^{\infty} a_n$ converges then, by definition, the partial sum sequence 
+        \[
+        (S_N)_{N=m}^{\infty} = \left(\sum_{n=m}^{N}a_n\right)_{N=m}^{\infty}
+        \]
+        converges to $L$.
+        Therefore, for any $\varepsilon > 0$ there exists some $M \geq m$ such that for any $p-1,q \geq M$
+        \[
+        \vert S_q - S_{p-1} \vert \leq \varepsilon.
+        \]
+        Without loss of generality assume $p - 1 \leq q$, it follows that
+        \[
+        \left\lvert \sum_{n=m}^{q}a_n - \sum_{n=m}^{p-1}a_n \right\rvert = \left\lvert \sum_{n=p}^{q}a_n \right\rvert \leq \varepsilon.
+        \]
+        
+        \item[$(\impliedby)$] Doing the reverse process of the direct implication the result follows.
+    \end{enumerate}
+    \begin{flushright}
+        \qed
+    \end{flushright}
+
+    \item \textbf{(Zero test)}. Let \( \sum_{n=m}^{\infty} a_n \) be a convergent series of real numbers. Then we must have \( \lim_{n \to \infty} a_n = 0 \). To put this another way, if \( \lim_{n \to \infty} a_n \) is non-zero or divergent, then the series \( \sum_{n=m}^{\infty} a_n \) is divergent.
+    \\$\textbf{Solution.}$
+    If $\sum_{n=m}^{\infty}a_n$ converges then by last problem, for any $\varepsilon > 0$, there exists some $M \geq m$ such that for any $p,q \geq M$
+    \begin{equation}
+        \left \lvert \sum_{n=p}^{q} a_n \right\rvert \leq \varepsilon.
+    \end{equation}
+    Suppose for the sake of contradiction that $\lim_{n\to\infty}a_n = L > 0$ so that for any $\varepsilon > 0$ there exists 
+    some $M'$ such that for any $n \geq M'$ 
+    \[
+    \vert a_n - L \vert < \varepsilon
+    \]
+    so that in particular $a_n \geq L-\varepsilon$.
+
+    Therefore, for $K := \max\{M, M'\}$ and for any $p,q \geq M$
+    \[
+    \left \lvert \sum_{n=p}^{q} a_n \right\rvert \geq \left| \sum_{n=p}^{q} L- \varepsilon \right| = (q-p+1)\left| L - \varepsilon \right|.
+    \]
+    Hence, let $\varepsilon = L/2$, we see that if the above inquality were true 
+    \[
+    \left \lvert \sum_{n=p}^{q} a_n \right\rvert \geq \frac{(q-p+1)L}{2}.
+    \]
+    Then let $q = p+1$, it follows that 
+    \[
+        \left \lvert \sum_{n=p}^{q} a_n \right\rvert \geq L > \varepsilon. 
+    \]
+    A contradiction of inequality $(1)$.
+    \begin{flushright}
+        \qed
+    \end{flushright}
+
+    \item \textbf{(Absolute convergence test)}. Let \( \sum_{n=m}^{\infty} a_n \) be a formal series of real numbers. If this series is absolutely convergent, then it is also conditionally convergent. Furthermore, in this case we have the triangle inequality
+    \[
+    \left| \sum_{n=m}^{\infty} a_n \right| \leq \sum_{n=m}^{\infty} |a_n|.
+    \]
+    $\textbf{Solution.}$
+    If $\sum_{n=m}^{\infty}\vert a_n \vert$ converges to $L$, then for any $\varepsilon > 0$ there exists some 
+    $M \geq m$ such that for any $p,q \geq M$
+    \[
+    \left\lvert \sum_{n=p}^{q}\vert a_n \vert \right\rvert \leq \varepsilon.
+    \]
+    Hence, 
+    \[
+    \sum_{n=p}^{q}\vert a_n \vert \leq \varepsilon.
+    \]
+    By triangle inequality over finite series, for any $p,q \geq M$ we have
+    \[
+    \left\lvert \sum_{n=p}^{q} a_n \right\rvert \leq \sum_{n=p}^{q}\vert a_n \vert.
+    \]
+    We conclude that $\sum_{n=p}^{q}a_n$ converges. Trivially, we also note that again, by triangle inequality over 
+    finite series, each partial sum $S_N = \sum_{n=m}^{N}a_n$ is smaller than or equal to $T_N = \sum_{n=m}^{N}\vert a_n \vert$,
+    meaning that by comparison principle $\lim_{N\to\infty}S_N \leq \lim_{N\to\infty}T_N$.
+    \begin{flushright}
+        \qed
+    \end{flushright}
+
+    \item
+
+    \item Let $(a_n)_{n\geq 1}$ be a sequence of positive real numbers such that
+    the series $\sum_{n=1}^{\infty}a_n$ converges. Show that the series
+    \begin{center}
+        $\displaystyle \sum_{n=1}^{\infty}a_n^{\frac{n}{n+1}}$
+    \end{center}
+    Also converges.
+\end{enumerate}
+\section*{Series expansions}
+\end{document}
