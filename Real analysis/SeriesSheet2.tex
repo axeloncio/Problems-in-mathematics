@@ -102,7 +102,39 @@
         \qed
     \end{flushright}
 
-    \item
+    \item (\textbf{Series laws}).
+    \begin{enumerate}
+        \item[(a)] If \( \sum_{n=m}^{\infty} a_n \) is a series of real numbers converging to \( x \), and
+        \( \sum_{n=m}^{\infty} b_n \) is a series of real numbers converging to \( y \), then
+        \( \sum_{n=m}^{\infty} (a_n + b_n) \) is also a convergent series, and converges to \( x + y \).\\
+        In particular, we have
+        \[
+        \sum_{n=m}^{\infty} (a_n + b_n)
+        = \sum_{n=m}^{\infty} a_n + \sum_{n=m}^{\infty} b_n.
+        \]
+
+        \item[(b)] If \( \sum_{n=m}^{\infty} a_n \) is a series of real numbers converging to \( x \), and
+        \( c \) is a real number, then \( \sum_{n=m}^{\infty} (c a_n) \) is also a convergent series, and
+        converges to \( cx \).\\
+        In particular, we have
+        \[
+        \sum_{n=m}^{\infty} (c a_n)
+        = c \sum_{n=m}^{\infty} a_n.
+        \]
+
+        \item[(c)] Let \( \sum_{n=m}^{\infty} a_n \) be a series of real numbers, and let
+        \( k \geq 0 \) be an integer. If one of the two series
+        \( \sum_{n=m}^{\infty} a_n \) and \( \sum_{n=m+k}^{\infty} a_n \) are convergent,
+        then the other one is also, and we have the identity
+        \[
+            \sum_{n=m}^{\infty} a_n
+            = \sum_{n=m}^{m+k-1} a_n + \sum_{n=m+k}^{\infty} a_n.
+        \]
+
+        \item[(d)] Let \( \sum_{n=m}^{\infty} a_n \) be a series of real numbers converging to \( x \),
+        and let \( k \) be an integer. Then
+        \( \sum_{n=m+k}^{\infty} a_{n-k} \) also converges to \( x \).
+    \end{enumerate}
 
     \item Let $(a_n)_{n\geq 1}$ be a sequence of positive real numbers such that
     the series $\sum_{n=1}^{\infty}a_n$ converges. Show that the series
