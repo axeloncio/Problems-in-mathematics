@@ -1,0 +1,269 @@
+\documentclass{article}
+\usepackage{amsmath} % Required for mathematical symbols and fonts
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{amssymb} % Required for additional mathematical symbols
+\usepackage{amsthm}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\title{Convergence Sheet II}
+\author{Gallo Tenis / to A Mathematical Room}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \textit{Problems on convergence of sequences, functions and continuity. The problems are from the books of M. Spivak ``Calculus'', T. Tao ``Analysis I'', R. G. Bartle ``Introduction to Real Analysis''
+    and Titu Andreescu ``Putnam and Beyond''.}
+\end{center}
+\section*{Suprema and Infima of sequences}
+    \begin{enumerate}
+        \item Let \( E \) be a subset of \( \mathbb{R}^* \). Then the following statements are true.
+
+        \begin{enumerate}
+            \item[(a)] For every \( x \in E \) we have \( x \leq \sup(E) \) and \( x \geq \inf(E) \).
+        
+            \item[(b)] Suppose that \( M \in \mathbb{R}^* \) is an upper bound for \( E \), i.e., \( x \leq M \) for all \( x \in E \). Then we have \(\sup(E) \leq M\).
+        
+            \item[(c)] Suppose that \( M \in \mathbb{R}^* \) is a lower bound for \( E \), i.e., \( x \geq M \) for all \( x \in E \). Then we have \(\inf(E) \geq M\).
+        \end{enumerate}
+        $\textbf{Solution.}$
+
+
+        \item \textbf{(Least upper bound property)}. Let
+        \( (a_n)_{n=m}^{\infty} \) be a sequence of real numbers, and let
+        \( x \) be the extended real number
+        \[
+        x := \sup (a_n)_{n=m}^{\infty}.
+        \]
+        Then we have \( a_n \leq x \) for all \( n \geq m \). Also,
+        whenever \( M \in \mathbb{R}^* \) is an upper bound for \( a_n \)
+        (i.e., \( a_n \leq M \) for all \( n \geq m \)), we have \( x \leq M \).
+        
+        Finally, for every extended real number \( y \) for which \( y < x \),
+        there exists at least one \( n \geq m \) for which
+        \[
+        y < a_n \leq x.
+        \]
+        $\textbf{Solution.}$
+        The first two propositions follow directly from the definitions of suprema and infima of sequences and sets 
+        of extended real numbers.
+
+        For the final proposition, if $x = +\infty$, and $y \in \mathbb{R}$ then given that 
+        $a_n \in \mathbb{R}$, $(a_n)$ is divergent. 
+        Therefore, for any $K$ there exists some $n \geq m$ such that 
+        $a_n \geq K$. In particular there exists some $n_0 \geq m$ such that $a_n \geq K_0 > y$.
+
+        If $x \in \mathbb{R}$ then $y \in \mathbb{R}$ for any $y < x$. 
+        Suppose for the sake of contradiction that there existed at least one $y_0 < x$ such that for any $n \geq m$, $a_n \leq y_0$.
+        Then immediately we get a contradiction, as $y_0$ is an upper bound smaller than $x$.
+
+        Note that $x,y = \infty$ but $y < x$ would mean that $\infty < \infty$ which is false.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item (\textbf{Monotone bounded sequences converge}).
+        Let \((a_n)_{n=m}^{\infty}\) be a sequence of real numbers which has some finite upper bound \(M \in \mathbb{R}\), and which is also increasing (i.e., \(a_{n+1} \geq a_n\) for all \(n \geq m\)). Then \((a_n)_{n=m}^{\infty}\) is convergent, and in fact
+        \[
+        \lim_{n \to \infty} a_n = \sup(a_n)_{n=m}^{\infty} \leq M.
+        \]
+        $\textbf{Proof.}$
+        Since $(a_n)$ is bounded, its supremum cannot be infinite.
+        Let $\varepsilon_n$ be the real number $\sup(a_n) - a_n$.
+        We see that $(\varepsilon_n)$ is a decreasing positive sequence, has supremum $\sup(a_n)-a_1$.
+        It is verified that $\inf(\varepsilon_n) = 0$ since otherwise, if $\inf(\varepsilon_n) = c > 0$ then 
+        for any $n \geq 1$, by problem (2)
+        \[
+        c = \inf(\varepsilon_n) = \inf(\sup(a_n) - a_n) \leq \sup(a_n) - a_n 
+        \]
+        so that
+        \[
+        a_n \leq \sup(a_n) - c < \sup(a_n)
+        \]
+        which contradicts the fact that $\sup(a_n)$ is the least upper bound of $(a_n)$.
+
+        We claim that given any positive integer $k \geq 1$ there exists some $K$ such that for any $n,m \geq K$,
+        \[
+        \vert a_n - a_m \vert \leq \varepsilon_{k}.
+        \]
+        To prove this claim we see that for $n,m \geq k$ by symmetry if $n \geq m$, since $(a_n)$ is monotone
+        \[
+        \vert a_n - a_m \vert = a_n - a_m \leq \sup(a_n) - a_n \leq \sup(a_n) - a_k = \varepsilon_k. 
+        \]
+        We conclude that suffices letting $K := k$.
+
+        Then, let $\varepsilon > 0$ be any real number, we claim that there exists some $N \geq 1$ such that for any $n \geq N$
+        \[
+        \vert a_n - \sup(a_n) \vert \leq \varepsilon.
+        \]
+
+        To prove this claim we see that since $\inf(\varepsilon_n) = 0$, by problem (2), for any $\varepsilon > 0$ we can find at least one $k$ such that $\varepsilon > \varepsilon_k \geq 0$,
+        hence this shows that
+        \[
+        \vert a_n - a_m \vert \leq \varepsilon
+        \]
+        for a given $\varepsilon$ and for every $n,m \geq K = k$, so the sequence converges by Cauchy criterion.
+        Then, by construction
+        \[
+        \vert \sup(a_n) - a_n \vert = \varepsilon_n \leq \varepsilon.
+        \]
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item Explain why Proposition 6.3.10 fails when \( x > 1 \). 
+        In fact, show that the sequence \((x^n)_{n=1}^\infty\) diverges when \( x > 1 \). 
+        (Hint: prove by contradiction and use the identity \((1/x)^n x^n = 1\) and the limit laws in Theorem 6.1.19.) 
+        Compare this with the argument in Example 1.2.3; can you now explain the flaws in the reasoning in that example?
+        \begin{remark}
+            \textbf{Proposition 6.3.10.} \textit{Let } $0 < x < 1$. \textit{Then we have } 
+            
+            $\lim_{n\to\infty}x^n = 0$.
+        \end{remark}
+        $\textbf{Solution.}$ Let $x > 1$.
+        Suppose for the sake of contradiction that $\lim_{n\to\infty}x^n$ converged to $L \in \mathbb{R}$.
+        Consider the sequence $\left(\frac{1}{x}\right)^n$, this sequence converges to $0$ by squeeze theorem with $\frac{1}{n}$.
+        Therefore, by limit laws (since both sequences supposedly converge) we should get that 
+        \[
+        \lim_{n\to\infty}\left(\frac{1}{x}\right)^n\cdot x^n = \lim_{n\to\infty} \left(\frac{1}{x}\right)^n\lim_{n\to\infty}x^n = 0\cdot L = 0.
+        \]
+        In spite of this, the limit should be equal to 
+        \[
+        \lim_{n\to\infty}\left(\frac{1}{x^n}\right)\cdot x^n = \lim_{n\to\infty}\frac{x^n}{x^n} = 1.
+        \]
+        We conclude that $0=1$ which is false. We conclude that $x^n$ does not converge if $x > 1$, note that in this case the test 
+        of falseness we used was not the epsilon definition but the limit laws theorem.
+
+        Regarding $Example$ $1.2.3$, that essentially says that for any $x \in \mathbb{R}$
+        \[
+        L = \lim_{n\to\infty}x^n = \lim_{m+1\to\infty}x^{m+1} = x\lim_{m+1\to\infty}x^{m+1},
+        \]
+        but by limit laws:
+        \[
+        x\lim_{m+1\to\infty}x^{m} = xL,
+        \]
+        concluding that 
+        \[
+        xL = L.
+        \]
+        So that $L = 0$ or $x = 1$.
+        the two main flaws are: 
+        first, assuming that the sequence converges to a finite limit $L$ for any $x$ (that we have shown it does not)
+        and the second (related to the first), that we can apply limit laws in possibly divergent sequences. The condition
+        to the limit laws theorem to hold is the sequences to converge in first place.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item \textbf{(Limits are limit points.)}
+        Let \((a_n)_{n=m}^{\infty}\) be a sequence which converges to a real number \(c\). Then \(c\) is a limit point of \((a_n)_{n=m}^{\infty}\), and in fact it is the only limit point of \((a_n)_{n=m}^{\infty}\).
+        \\$\textbf{Proof.}$
+        \begin{enumerate}
+            \item[\textbf{Existence}]
+            If $(a_n)$ converges to $c$ then for any $\varepsilon > 0$ there exists an $N \geq m$ such that for any $n \geq N$
+            \[
+            \vert a_n - c \vert \leq \varepsilon.
+            \]
+            In order for $c$ to be a limit point, it must happen that for any $\varepsilon > 0$
+            and any $N' \geq m$ there exists an $n' \geq N'$ such that
+            \[
+            \vert a_{n'} - c \vert \leq \varepsilon.
+            \]
+            Let $n' = \max\{N,N'\}$ (fixed $N$ and variable $N'$) then in particular for any $n \geq n' \geq N$
+            \[
+            \vert a_n - c \vert \leq \varepsilon \text{ }( (a_n) \text{ converges})
+            \]
+            and in particular since $n' \geq N'$ and by convergence
+            \[
+            \vert a_{n'} - c \vert \leq \varepsilon \text{ }( c \text{ is a limit point}).
+            \]
+            \item[\textbf{Uniqueness}]
+            Note that limit are limit points does not guarantee that limit points are limits.
+            Let $c,d$ be limit points of $(a_n)$. Then for any $\varepsilon/2 > 0$ and $N \geq m$ there exists $n,n' \geq N$
+            such that
+            \[
+            \vert a_n - c \vert \leq \varepsilon/2 \text{ and } \vert a_{n'} - d\vert \leq \varepsilon/2
+            \]
+            by symmetry assume $n \geq n'$ then let $N = n'$ so that $n, n' \geq n'$
+            \[
+            \vert a_n - c \vert + \vert a_{n} - d \vert \leq \varepsilon. 
+            \]
+            we observe that by triangle inequality
+            \[
+            \vert c - d \vert \leq \vert c - K\vert + \vert K - d\vert \leq \varepsilon.
+            \]
+            By the arbitrariness of $\varepsilon$ we conclude that $c = d$.
+        \end{enumerate}
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item Let \( (a_n)_{n=m}^{\infty} \) be a sequence
+        of real numbers, let \( L^+ \) be the limit superior of this sequence,
+        and let \( L^- \) be the limit inferior of this sequence
+        (thus both \( L^+ \) and \( L^- \) are extended real numbers).
+        \begin{enumerate}
+            \item[(c)] We have 
+            \[
+                \inf(a_n)_{n=m}^{\infty} \leq L^- \leq L^+ \leq \sup(a_n)_{n=m}^{\infty}.
+            \]
+        
+            \item[(d)] If \( c \) is any limit point of \( (a_n)_{n=m}^{\infty} \),
+            then we have 
+            \[
+                L^- \leq c \leq L^+.
+            \]
+        
+            \item[(e)] If \( L^+ \) is finite, then it is a limit point of 
+            \( (a_n)_{n=m}^{\infty} \). Similarly, if \( L^- \) is finite,
+            then it is a limit point of \( (a_n)_{n=m}^{\infty} \).
+        
+            \item[(f)] Let \( c \) be a real number. If \( (a_n)_{n=m}^{\infty} \)
+            converges to \( c \), then we must have \( L^+ = L^- = c \). Conversely,
+            if \( L^+ = L^- = c \), then \( (a_n)_{n=m}^{\infty} \) converges to \( c \).
+        \end{enumerate}
+        $\textbf{Proof.}$
+        \begin{enumerate}
+            \item 
+        \end{enumerate}
+
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item \textbf{(Comparison principle.)} Suppose that \( (a_n)_{n=m}^{\infty} \) and 
+        \( (b_n)_{n=m}^{\infty} \) are two sequences of real numbers 
+        such that \( a_n \leq b_n \) for all \( n \geq m \). 
+        Then we have the inequalities:
+        \[
+            \sup(a_n)_{n=m}^{\infty} \leq \sup(b_n)_{n=m}^{\infty}
+        \]
+        \[
+            \inf(a_n)_{n=m}^{\infty} \leq \inf(b_n)_{n=m}^{\infty}
+        \]
+        \[
+            \limsup_{n \to \infty} a_n \leq \limsup_{n \to \infty} b_n
+        \]
+        \[
+            \liminf_{n \to \infty} a_n \leq \liminf_{n \to \infty} b_n
+        \]
+
+        \item \textbf{(Squeeze test.)}
+        Let $(a_n)_{n=m}^{\infty}$, $(b_n)_{n=m}^{\infty}$, and $(c_n)_{n=m}^{\infty}$ be sequences of real numbers such that
+        \[
+        a_n \leq b_n \leq c_n
+        \]
+        for all $n \geq m$. Suppose also that $(a_n)_{n=m}^{\infty}$ and $(c_n)_{n=m}^{\infty}$ both converge to the same limit $L$. Then $(b_n)_{n=m}^{\infty}$ is also convergent to $L$.
+
+        \item \textbf{(Zero test for sequences.)}
+        Let $(a_n)_{n=M}^\infty$ be a sequence of real numbers. Then the limit $\lim_{n \to \infty} a_n$ exists and is equal to zero if and only if the limit $\lim_{n \to \infty} |a_n|$ exists and is equal to zero.
+    \end{enumerate}
+\section*{Subsets of the real line}
+\section*{Limits and continuity}
+\end{document}
