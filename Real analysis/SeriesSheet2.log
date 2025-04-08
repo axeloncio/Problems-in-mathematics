@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.10.17)  8 APR 2025 12:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2024.10.17)  8 APR 2025 14:51
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/jeans/Desktop/Matemáticas/LaTeX/SeriesSheet2.tex
-(c:/Users/jeans/Desktop/Matemáticas/LaTeX/SeriesSheet2.tex
+**"c:/Users/jeans/Desktop/Matemáticas/Git/Problems-in-mathematics/Real analysis/SeriesSheet2.tex"
+(c:/Users/jeans/Desktop/Matemáticas/Git/Problems-in-mathematics/Real analysis/SeriesSheet2.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
 (C:\Users\jeans\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -444,12 +444,12 @@ L3 programming layer <2023-08-29>
  ) 
 Here is how much of TeX's memory you used:
  13454 strings out of 475248
- 270595 string characters out of 5757812
+ 270853 string characters out of 5757812
  1929785 words of memory out of 5000000
  34717 multiletter control sequences out of 15000+600000
  617334 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 84i,6n,89p,502b,221s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,6n,89p,540b,221s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi5.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr12.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr17.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr5.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmri10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy10.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmsy7.pfb><C:/Users/jeans/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
 Output written on SeriesSheet2.pdf (4 pages, 247867 bytes).
 PDF statistics:
