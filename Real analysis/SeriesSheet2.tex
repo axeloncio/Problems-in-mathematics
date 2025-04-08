@@ -60,7 +60,7 @@
     \]
     so that in particular $a_n \geq L-\varepsilon$.
 
-    Therefore, for $K := \max\{M, M'\}$ and for any $p,q \geq M$
+    Therefore, for any $p,q \geq K := \max\{M, M'\}$
     \[
     \left \lvert \sum_{n=p}^{q} a_n \right\rvert \geq \left| \sum_{n=p}^{q} L- \varepsilon \right| = (q-p+1)\left| L - \varepsilon \right|.
     \]
@@ -136,12 +136,48 @@
         \( \sum_{n=m+k}^{\infty} a_{n-k} \) also converges to \( x \).
     \end{enumerate}
 
+    \item \textbf{(Comparison test.)}
+
+    \item \textbf{(Geometric series.)}
+    
+    \item \textbf{(Cauchy criterion.)}
+
+    \item \textbf{(Root test.)}
+    
+    \item \textbf{(Ratio test.)}
+
     \item Let $(a_n)_{n\geq 1}$ be a sequence of positive real numbers such that
     the series $\sum_{n=1}^{\infty}a_n$ converges. Show that the series
     \begin{center}
         $\displaystyle \sum_{n=1}^{\infty}a_n^{\frac{n}{n+1}}$
     \end{center}
-    Also converges.
+    Also converges.\\
+    $\textbf{Solution.}$
+    Consider the partial sum sequence $(S_N)_{N=m}^{\infty}$ such that $S_n = \sum_{n=m}^{N}a_n^{\frac{n}{n+1}}$.
+    We see that 
+    \[
+    b_n = \frac{n}{n+1} = \frac{(n+1)-1}{n+1} = 1 - \frac{1}{n+1}
+    \]
+    so that $\lim_{n\to\infty}b_n = 1$.
+    By zero test, since $\sum_{n=1}^{\infty}a_n$ converges, necessarily $\lim_{n\to\infty}a_n = 0$.
+    We therefore can study the behaviour of the sequence
+    \[
+    \lim_{n\to\infty} a_n^{b_n}.
+    \]
+    That results into 
+    \[
+    \lim_{n\to\infty} \frac{a_n}{a_n^{\frac{1}{n+1}}}.
+    \]
+    Note that we cannot use limit laws theorem since we do not know whether $a_n^{\frac{1}{n+1}}$ might converge.
+    Suppose that it converged to $c \in \mathbb{R}$, then
+    \[
+    \lim_{n\to\infty}a_n^{b_n} = \frac{1}{c}\lim_{n\to\infty}a_n = 0.
+    \]
+    Then one thing we shall also verify is that it is bounded above by for example $\frac{1}{n(n+1)}$ thus 
+    by comparison principle the requested series converge.
+
+
+
 \end{enumerate}
 \section*{Series expansions}
 \end{document}
