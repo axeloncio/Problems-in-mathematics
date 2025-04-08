@@ -1,0 +1,136 @@
+\documentclass{article}
+\usepackage{amsmath} % Required for mathematical symbols and fonts
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{amssymb} % Required for additional mathematical symbols
+\usepackage{amsthm}
+
+\newcommand{\D}{
+    \hat{\delta}_{D}
+}
+
+\newcommand{\N}{
+    \hat{\delta}_{N}
+}
+
+\newcommand{\DD}[2]{
+    \hat{\delta}_{D}(\{#1\}, #2)
+}
+
+\newcommand{\NN}[2]{
+    \hat{\delta}_{N}(#1, #2)
+}
+
+\usetikzlibrary{automata}
+\newtheorem{lemma}{Lemma}
+\usepackage{mathtools}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\title{Finite Automata Sheet}
+\author{Gallo Tenis}
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \textit{
+        Automata theory problems from the book ''Automata Theory, Languages, and Computation'' by J. Ullman.
+    }
+\end{center}
+\section*{DFA and NFA equivalence}
+\begin{enumerate}
+    \item \textbf{(Equivalence theorem.)}
+    If \( D = (Q_D, \Sigma, \delta_D, \{q_0\}, F_D) \) is the DFA constructed from NFA 
+    \( N = (Q_N, \Sigma, \delta_N, q_0, F_N) \) by the subset construction, then \( L(D) = L(N) \).
+    Conversely if $L$ is a language that is accepted by some DFA then it is accepted by some NFA.
+    \\$\textbf{Proof.}$
+    By definition of language of both $N$ and a generic DFA
+    \[
+    L(N) := \{w \in \Sigma^* : \hat{\delta}_N(q_0,w) \cap F_Q \neq \varnothing\}
+    \]
+    \[
+    L(D) := \{w \in \Sigma^* : \hat{\delta}_D(\{q_0\},w) \in F_D\}
+    \]
+    it is obvious from these definitions that
+    \[
+    \DD{q_0}{w} \in F_D \implies \DD{q_0}{w} \cap F_D = \varnothing.
+    \]
+    In other words, the only thing to prove is that for any $w \in \Sigma^n$
+    \[
+        \DD{q_0}{w} = \NN{q_0}{w}.
+    \]
+    We need to rely in the transition function constructed by subsets out of $\N$.
+    By induction on $n = \vert w \vert$:
+    \begin{enumerate}
+        \item[\textbf{Basis.}] Assume $n = 0$ so that $w = \varepsilon$. Then 
+        the construction by subsets transition function will simply be $\delta_D(\{q_0\},\varepsilon) = \{q_0\}$ then 
+        also we have
+        \[
+        \DD{q_0}{\varepsilon} = q_0 = \NN{q_0}{\varepsilon}.
+        \]
+        Thus we conclude that $\delta_D = \D = \N$.
+        \item[\textbf{Hypothesis.}] Assume that for the string $x$ of lenght $n$ it held that 
+        \[
+        \DD{q_0}{x} = \NN{q_0}{x} = \{p_1,\dots, p_m\} = S.
+        \]
+        \item[\textbf{Thesis.}] We have to prove that for a string $w = xa$ such that $n = \vert x\vert$ it follows that 
+        \[
+        \DD{q_0}{w} = \NN{q_0}{w}.
+        \]
+        To prove this assertion we recall the definition of $\D$ for any DFA and compare it to the one constructed by subsets.
+        We have that 
+        \begin{equation}
+            \DD{q_0}{w} \stackrel{def}{=} \delta_D(\DD{q_0}{x},a)
+        \end{equation}
+        \begin{equation}
+            \delta_D(S,a) \stackrel{c.b.s.}{=} \bigcup_{p \in S}\delta_N(p,a) = \bigcup_{i=1}^{m}\delta_N(p_i,a).
+        \end{equation}
+        Note that in (2), by construction $S$ is a subset of $Q_N$ such that
+        \begin{equation}
+            \DD{q_0}{w} = \delta_D(\DD{q_0}{x},a) = \delta_D(S,a)
+        \end{equation}
+        hence, the transition function constructed by subsets is a valid transition function for $D$.
+        Furthermore by equation (1)
+        \[
+        \DD{q_0}{w} = \bigcup_{i=1}^{m}\delta_N(p_i,a).
+        \]
+        We also note that in the case of the extended transition function of $N$ 
+        \[
+        \NN{q_0}{w} \stackrel{def}{=} \bigcup_{i=1}^{m}\delta_N(p_i,a) = \delta_D(S,a) \stackrel{(3)}{=} \DD{q_0}{w}.
+        \]
+    \end{enumerate}
+    
+    Conversely, to prove that a DFA $D = (Q_D, \Sigma, \delta_D, \{q_0\}, F_D)$ induced language is the same as some NFA language, 
+    by structural induction on $n$, the lenght of the input string, we define the NFA $N$ as 
+    \begin{enumerate}
+        \item[\textbf{Basis.}]
+        We let the start state $q_0$ of $D$ be the start state also of $N$. 
+        So that for $w = \varepsilon$, $\DD{q_0}{\varepsilon} = \NN{q_0}{\varepsilon}$.
+        \item[\textbf{Hypothesis.}]
+        For $\vert x \vert = n$ suppose $\DD{q_0}{x} = p_n$ then we let $\NN{q_0}{x} = \{p_n\}$.
+        \item[\textbf{Thesis.}]
+        For $w = xa$ with $\vert w \vert = n+1$, by hypothesis 
+        \[
+        \DD{q_0}{w} = \delta_D(\DD{q_0}{x},a) = \delta_D(p_n,a) = p_{n+1}.
+        \]
+        We let $\NN{q_0}{w} = \{p_{n+1}\}$.
+    \end{enumerate}
+    \begin{flushright}
+        \qed
+    \end{flushright}
+
+    \item \textbf{(Worst case.)} Show that there exists a NFA with $N$ states such that equivalent DFA  
+    has $2^N$ states.\\
+    $\textbf{Solution.}$
+
+
+    \item Prove that if \( N \) is an NFA that has at most one choice of state for any state and input symbol (i.e., \(\delta(q, a)\) never has size greater than 1), 
+    then the DFA \( D \) constructed from \( N \) by the subset construction has exactly the states and transitions of \( N \) plus transitions to a new dead state whenever \( N \) is missing a transition
+    for a given state and input symbol.
+\end{enumerate}
+\end{document}
