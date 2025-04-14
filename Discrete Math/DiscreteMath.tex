@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage{amsmath} % Required for mathematical symbols and fonts
+\usepackage{graphicx} % Required for inserting images
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{amssymb} % Required for additional mathematical symbols
+\usepackage{amsthm}
+\usetikzlibrary{automata}
+\newtheorem{lemma}{Lemma}
+\usepackage{mathtools}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\title{Discrete Mathematics Sheet I}
+\author{Gallo Tenis / to A Mathematical Room}
+\begin{document}
+
+\maketitle
+
+\begin{center}
+    \textit{
+        Problems in Discrete Math from the books: ``A Path to Combinatorics For Undergraduates'' by Titu Andreescu, ``102 Combinatorial Problems'' by Titu Andreescu,
+        and ``Graph Theory With Applications'' by J. A. Bondy.
+        These weeks problems will be about an introduction to counting techniques, inclusion-exclusion principle and graph theory,
+        }
+\end{center}
+\section*{Counting Techniques}
+    \begin{enumerate}
+        \item If 8 identical blackboards are to be divided among 4 schools, how many divisions are possible? 
+        How many if each school must receive at least 1 blackboard?
+
+        \item An elevator starts at the basement with 8 people (not including the elevator operator) 
+        and discharges them all by the time it reaches the top floor, number 6. 
+        In how many ways could the operator have perceived the people leaving the elevator if all people look alike to him? 
+        What if the 8 people consisted of 5 men and 3 women and the operator could tell a man from a woman?
+        
+        \item We have \$20,000 that must be invested among 4 possible opportunities.\\
+        Each investment must be integral in units of \$1000, and there are minimal investments that need to be made if one is to invest in these opportunities.\\
+        The minimal investments are \$2000, \$2000, \$3000, and \$4000.\\
+        How many different investment strategies are available if  
+        
+        \textbf{(a)} an investment must be made in each opportunity?\\
+        
+        \textbf{(b)} investments must be made in at least 3 of the 4 opportunities?\\
+        
+        \item Suppose that 10 fish are caught at a lake that contains 5 distinct types of fish.\\
+        
+        \textbf{(a)} How many different outcomes are possible, where an outcome specifies the numbers of caught fish of each of the 5 types?\\
+        
+        \textbf{(b)} How many outcomes are possible when 3 of the 10 fish caught are trout?\\
+        
+        \textbf{(c)} How many when at least 2 of the 10 are trout?\\
+
+        \item Determine the number of functions 
+        \[
+        f : \{1,2,\dots,1999\} \to \{2000, 2001, 2002, 2003\}
+        \]
+        satisfying the condition that 
+        \[
+        f(1) + f(2) + \dots + f(1999) \text{ is odd}.
+        \]
+    
+        \item Find the number of two-digit positive integers that are divisible by both of their digits.
+    
+        \item For any set \( S \), let \( |S| \) denote the number of elements in \( S \), and let \( n(S) \) be the number of subsets of \( S \), including the empty set and \( S \) itself. If \( A, B, \) and \( C \) are sets for which
+
+        \[
+        n(A) + n(B) + n(C) = n(A \cup B \cup C)
+        \]
+        
+        and 
+        
+        \[
+        |A| = |B| = 100,
+        \]
+        
+        then what is the minimum possible value of \( |A \cap B \cap C| \)?
+
+        \item For how many pairs of consecutive integers in $\{1000,1001,1002, \dots, 2000\}$
+        is no carrying required when the two integers are added?
+
+        \item Each of two boxes contains both black and white marbles, and the total number of marbles in the two boxes is 25. One marble is taken out of each box randomly. The probability that both marbles are black is \( \frac{27}{50} \). What is the probability that both marbles are white?
+
+        \item There are ten girls and four boys in Mr. Fat’s combinatorics class. In how many ways can these students sit around a circular table such that no boys are next to each other?
+        
+        \item Find the number of ordered triples of sets \( (A,B,C) \) such that
+        \[
+        A \cup B \cup C = \{1,2,\dots,2003\} \quad \text{and} \quad A \cap B \cap C = \emptyset.
+        \]
+        
+        \item Compute the number of sets of three distinct elements that can be chosen from the set \( \{2^1, 2^2, 2^3, \dots, 2^{2000}\} \) such that the three elements form an increasing geometric progression.
+        
+        \item Let \( n \) be an integer greater than four, and let \( P_1P_2 \dots P_n \) be a convex \( n \)-sided polygon. Zachary wants to draw \( n - 3 \) diagonals that partition the region enclosed by the polygon into \( n - 2 \) triangular regions and that may intersect only at the vertices of the polygon. In addition, he wants each triangular region to have at least one side that is also a side of the polygon. In how many different ways can Zachary do this?
+        
+        \item How many five-digit numbers are divisible by three and also contain 6 as one of their digits?
+        
+        \item Two squares on an $8 \times 8$ chessboard are called \emph{touching} if they have at least one common vertex. Determine if it is possible for a king to begin in some square and visit all the squares exactly once in such a way that all moves except the first are made into squares touching an even number of squares already visited.
+
+        \item A total of 119 residents live in a building with 120 apartments. We call an apartment \emph{overpopulated} if there are at least 15 people living there. Every day the inhabitants of an overpopulated apartment have a quarrel and each goes off to a different apartment in the building (so they can avoid each other). Is it true that this process will necessarily be completed someday?
+    \end{enumerate}
+\section*{Graph theory}
+    \begin{enumerate}
+        \item Show that two simple graphs \( G \) and \( H \) are isomorphic if and only if there is a bijection \( \theta : V(G) \to V(H) \) such that \( uv \in E(G) \) if and only if \( \theta(u)\theta(v) \in E(H) \).
+        
+        \item Let \( G \) be simple. Show that \( \varepsilon = \binom{\nu}{2} \) if and only if \( G \) is complete.
+        
+        \item
+        Show that
+        \begin{enumerate}
+            \item \( \varepsilon (K_{m,n}) = mn; \)
+            \item if \( G \) is simple and bipartite, then \( \varepsilon \leq \nu^2 / 4 \).
+        \end{enumerate}
+        
+        \item
+        A \( k \)-partite graph is one whose vertex set can be partitioned into \( k \) subsets so that no edge has both ends in any one subset; a complete \( k \)-partite graph is one that is simple and in which each vertex is joined to every vertex that is not in the same subset. The complete \( m \)-partite graph on \( n \) vertices in which each part has either \([n/m]\) or \(\{n/m\}\) vertices is denoted by \( T_{m,n} \). Show that
+        \begin{enumerate}
+            \item \( \varepsilon (T_{m,n}) = \binom{n-k}{2} + (m-1) \binom{k+1}{2} \), where \( k = [n/m]; \)
+            \item if \( G \) is a complete \( m \)-partite graph on \( n \) vertices, then \( \varepsilon (G) \leq \varepsilon (T_{m,n}) \), with equality only if \( G \cong T_{m,n} \).
+        \end{enumerate}
+        
+        \item
+        The \( k \)-cube is the graph whose vertices are the ordered \( k \)-tuples of \( 0 \)'s and \( 1 \)'s, two vertices being joined if and only if they differ in exactly one coordinate. (The graph shown in figure 1.4b is just the 3-cube.) Show that the \( k \)-cube has \( 2^k \) vertices, \( k2^{k-1} \) edges and is bipartite.
+        
+        \item
+        \begin{enumerate}
+            \item The complement \( G^e \) of a simple graph \( G \) is the simple graph with vertex set \( V \), two vertices being adjacent in \( G^e \) if and only if they are not adjacent in \( G \). Describe the graphs \( K^e_n \) and \( K^e_{m,n} \).
+            \item A simple graph \( G \) is self-complementary if \( G \cong G^e \). Show that if \( G \) is self-complementary, then \( \nu \equiv 0 \), 1 (mod 4).
+        \end{enumerate}
+
+        \item The \(k\)-cube is the graph whose vertices are the ordered \(k\)-tuples of \(0\)'s and \(1\)'s, two vertices being joined if and only if they differ in exactly one coordinate. (The graph shown in figure 1.4b is just the 3-cube.) Show that the \(k\)-cube has \(2^{k}\) vertices, \(k2^{k-1}\) edges and is bipartite.
+    
+        \item
+        \begin{enumerate}
+            \item The \emph{complement} \(G^{*}\) of a simple graph \(G\) is the simple graph with vertex set \(V\), two vertices being adjacent in \(G^{*}\) if and only if they are not adjacent in \(G\). Describe the graphs \(K_{n}^{*}\) and \(K_{m,n}^{*}\).
+            \item A simple graph \(G\) is \emph{self-complementary} if \(G \cong G^{*}\). Show that if \(G\) is self-complementary, then \(\nu \equiv 0\), \(1\) (mod 4).
+        \end{enumerate}
+    
+        \item An \emph{automorphism} of a graph is an isomorphism of the graph onto itself.
+        \begin{enumerate}
+            \item Show, using exercise 1.2.5, that an automorphism of a simple graph \(G\) can be regarded as a permutation on \(V\) which preserves adjacency, and that the set of such permutations forms a group \(\Gamma(G)\) (the \emph{automorphism group} of \(G\)) under the usual operation of composition.
+            \item Find \(\Gamma(K_{n})\) and \(\Gamma(K_{m,n})\).
+            \item Find a nontrivial simple graph whose automorphism group is the identity.
+            \item Show that for any simple graph \(G\), \(\Gamma(G) = \Gamma(G^{*})\).
+            \item Consider the permutation group \(\Lambda\) with elements \((1)(2)(3)\), \((1,2,3)\) and \((1,3,2)\). Show that there is no simple graph \(G\) with vertex set \(\{1,2,3\}\) such that \(\Gamma(G) = \Lambda\).
+            \item Find a simple graph \(G\) such that \(\Gamma(G) = \Lambda\). (Frucht, 1939 has shown that every abstract group is isomorphic to the automorphism group of some graph.)
+        \end{enumerate}
+    
+        \item A simple graph \(G\) is \emph{vertex-transitive} if, for any two vertices \(u\) and \(v\), there is an element \(g\) in \(\Gamma(G)\) such that \(g(u) = v\); \(G\) is \emph{edge-transitive} if, for any two edges \(\{u_1, v_1\}\) and \(\{u_2, v_2\}\), there is an element \(h\) in \(\Gamma(G)\) such that \(h(\{u_1, v_1\}) = \{u_2, v_2\}\). Find
+        \begin{enumerate}
+            \item a graph which is vertex-transitive but not edge-transitive;
+            \item a graph which is edge-transitive but not vertex-transitive.
+        \end{enumerate}
+
+            \item What is the number of edges in a \(K^{n}\)?
+        
+            \item Let \(d \in \mathbb{N}\) and \(V := \{0,1\}^{d}\); thus, \(V\) is the set of all \(0\)-\(1\) sequences of length \(d\). The graph on \(V\) in which two such sequences form an edge if and only if they differ in exactly one position is called the \emph{\(d\)-dimensional cube}. Determine the average degree, number of edges, diameter, girth and circumference of this graph. (Hint for the circumference: induction on \(d\).)
+        
+            \item Let \(G\) be a graph containing a cycle \(C\), and assume that \(G\) contains a path of length at least \(k\) between two vertices of \(C\). Show that \(G\) contains a cycle of length at least \(\sqrt{k}\).
+        
+            \item Is the bound in Proposition 1.3.2 best possible?
+        
+            \item Let \(v_{0}\) be a vertex in a graph \(G\), and \(D_{0} := \{v_{0}\}\). For \(n = 1, 2, \ldots\) inductively define \(D_{n} := N_{G}(D_{0} \cup \ldots \cup D_{n-1})\). Show that \(D_{n} = \{\,v \;|\; d(v_{0}, v) = n\,\}\) and \(D_{n+1} \subseteq N(D_{n}) \subseteq D_{n-1} \cup D_{n+1}\) for all \(n \in \mathbb{N}\).
+        
+            \item Show that \(\operatorname{rad}(G) \leqslant \operatorname{diam}(G) \leqslant 2 \operatorname{rad}(G)\) for every graph \(G\).
+        
+            \item Prove the weakening of Theorem 1.3.4 obtained by replacing average with minimum degree. Deduce that \(|G| \geqslant n_{0}(d/2, g)\) for every graph \(G\) as given in the theorem.
+        
+            \item Show that graphs of girth at least \(5\) and order \(n\) have a minimum degree of \(o(n)\). In other words, show that there is a function \(f \colon \mathbb{N} \to \mathbb{N}\) such that \(f(n)/n \to 0\) as \(n \to \infty\) and \(\delta(G) \leqslant f(n)\) for all such graphs \(G\).
+        
+            \item Show that every connected graph \(G\) contains a path or cycle of length at least \(\min\left\{2\delta(G), |G|\right\}\).
+        
+            \item Show that a connected graph of diameter \(k\) and minimum degree \(d\) has at least about \(kd/3\) vertices but need not have substantially more.
+    \end{enumerate}
+\end{document}

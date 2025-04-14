@@ -7,6 +7,7 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newenvironment{claim}{\textbf{Claim.}}{}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 
@@ -185,20 +186,27 @@
             \]
             \item[\textbf{Uniqueness}]
             Note that limit are limit points does not guarantee that limit points are limits.
-            Let $c,d$ be limit points of $(a_n)$. Then for any $\varepsilon/2 > 0$ and $N \geq m$ there exists $n,n' \geq N$
-            such that
+            Let $d$ be a limit point then for any given $\varepsilon_0 > 0$ and any $N' \geq m$ 
+            there exists an $n' \geq N'$ such that 
             \[
-            \vert a_n - c \vert \leq \varepsilon/2 \text{ and } \vert a_{n'} - d\vert \leq \varepsilon/2
+            \vert a_{n'} - d \vert \leq \varepsilon_0.
             \]
-            by symmetry assume $n \geq n'$ then let $N = n'$ so that $n, n' \geq n'$
+            in particular, since $a_n$ converges to $c$, for $\varepsilon_0$
+            there exist a $N \geq m$ such that for any $n \geq N$
             \[
-            \vert a_n - c \vert + \vert a_{n} - d \vert \leq \varepsilon. 
+            \vert a_{n} - c \vert \leq \varepsilon_0. 
             \]
-            we observe that by triangle inequality
+            
+            Choose $N' := N$ (in the limit point condition) so that for any $n \geq N'$ (by convergence condition) and in particular for $n'$ (by limit point condition)
             \[
-            \vert c - d \vert \leq \vert c - K\vert + \vert K - d\vert \leq \varepsilon.
+            \vert a_{n'} - d \vert \leq \varepsilon_0 \text{ and } \vert a_{n'} - c \vert \leq \varepsilon_0.
             \]
-            By the arbitrariness of $\varepsilon$ we conclude that $c = d$.
+
+            We the notice that by triangle inequality
+            \[
+            \vert c - d \vert \leq \vert c - a_{n'}\vert + \vert a_{n'} - d\vert \leq \varepsilon_0.
+            \]
+            Since we let $\varepsilon_0 > 0$ be arbitrary in the condition of $d$ to be a limit point, we conclude that $c = d$.
         \end{enumerate}
         \begin{flushright}
             \qed
@@ -228,9 +236,135 @@
             converges to \( c \), then we must have \( L^+ = L^- = c \). Conversely,
             if \( L^+ = L^- = c \), then \( (a_n)_{n=m}^{\infty} \) converges to \( c \).
         \end{enumerate}
-        $\textbf{Proof.}$
+        $\textbf{Solution.}$
         \begin{enumerate}
-            \item 
+            \item[(c)] We have the trivial inequality 
+            \[
+            a_{m}^- = \inf(a_n)_{n=m}^{\infty} \leq a_m \leq \sup(a_n)_{n=m}^{\infty} = a_m^{+}.
+            \] 
+            \begin{claim}
+                We claim that for any $m_0, m_1 \geq m$
+                \[
+                a_{m_0}^{+} \geq a_{m_1}^{-}.
+                \]
+            \end{claim}
+            \textbf{Proof.}
+            To prove this claim we see that if $m_0 \leq m_1$, then
+            \[
+            \sup(a_n)_{n=m_0}^{\infty} \geq \sup(a_n)_{n=m_1}^{\infty} \geq \inf(a_n)_{n=m_1}^{\infty}
+            \]
+            so it holds.
+            If $m_0 \geq m_1$ then 
+            \[
+            \inf(a_n)_{n=m_1}^{\infty} \leq \inf(a_n)_{n=m_0}^{\infty} \leq \sup(a_n)_{n=m_0}^{\infty}
+            \]
+            so it also holds in this case.
+            \begin{flushright}
+                $\blacksquare$
+            \end{flushright}
+
+            Suppose for the sake of contradiction that $L^{-} = \sup(a_{n}^{-})_{n=m}^{\infty} > \inf(a_{n}^{+})_{n=m}^{\infty} = L^{+}$,
+            then by problem (2) there exists some $m_0 \geq m$ such that
+            \[
+            L^{+} \leq a_{m_0}^{+} < L^{-}
+            \]
+            hence $a_{m_0}^{+} < L^{-}$, then again, by problem (2) we must have that 
+            \begin{center}
+            $a_{m_0}^{+} < a_{m_1}^{-} \leq L^-$ for some $m_1 \geq m$
+            \end{center}
+            contradicting the first claim. We conclude that $L^{+} \geq L^{-}$.
+
+            \item[(d)] One may think at first that for any $n \geq m$ we have $L^- \leq a_n \leq L^+$,
+            this is false, and a counterexample is the sequence $(a_n)_{n=1}^{\infty}$ 
+            whose terms $a_1, a_2, a_3, \dots $ are
+            \[
+            1, -1/2, 1/3, \dots
+            \]
+            then the sequence $a_n^+$ is 
+            \[
+            1, 1/3, 1/5, \dots
+            \]
+            whose infimum $\inf(a_n^+)_{n=1}^{\infty}$ is just 0, but we see that $a_1 > 0$.
+            Similarly for other case $\sup(a_n^-)_{n=1}^{\infty} = 0$ but we see that $a_2 < 0$.
+
+            With that precision done, suppose for the sake of contradiction that $c > L^+$ (by symmetry $c < L^-$), then we must have that for an $n_0 \geq m$,
+            $c > a_{n_0}^{+} \geq L^+$. 
+
+            Since $c$ is a limit point, for any $\varepsilon>0$ and any $N \geq m$ there exists 
+            some $n \geq N$ such that
+            \[
+            \vert a_n - c \vert \leq \varepsilon.
+            \]
+            In particular let $N = n_0$ and let $\varepsilon := \frac{c - a_{n_0}^+}{2}$, therefore 
+            \[
+            a_n \geq \frac{a_{n_0}^+ - c}{2} + c = \frac{a_{n_0}^+ + c}{2} > a_{n_0}^+.
+            \]
+            Therefore, $a_{n} > a_{n_0}^+$, but since $n \geq n_0$ ($a_{n_0}^+$ ``reaches'' $a_n$) we also have $a_{n_0}^+ \geq a_{n}$,
+            a contradiction.
+            
+            \item[(e)] By symmetry, we have to verify that for any $\varepsilon > 0$ and any $N \geq m$ we can 
+            find some $n\geq N$ such that
+            \[
+            \vert a_n - L^+ \vert \leq \varepsilon.
+            \]
+            So that 
+            \[
+            L^+ - \varepsilon \leq a_{n} \leq \varepsilon + L^+.
+            \]
+            % We know that for any $n \geq m$, $a_n^+ \geq L^+$ and in particular $a_n^+ > L^+ - \varepsilon$.
+            % By problem (2) we can find an $n_0 \geq m$ such that $a_n^+ \geq a_{n_0} > L^+ - \varepsilon$.
+            
+            We notice that $(a_m^+)_{n=m}^{\infty}$ is decreasing (we have used this fact in item (1), for example), since $a_m^+ := \sup\{a_n: n\geq m\} \geq a_{m+1} := \sup\{a_n: n \geq m+1\}$
+            but it is also bounded below by the finite real number $\inf(a_n^+)$, hence by problem (3) this 
+            sequence converges to $\inf(a_n^+)$.
+
+            Therefore, for any $\varepsilon>0$ there exists some $N \geq m$ such that
+            for any $n \geq N$
+            \[
+            \vert a_n^+ - L^+ \vert < \varepsilon
+            \]
+            hence
+            \[
+            L^+ - \varepsilon < a_n^+ < \varepsilon + L^+
+            \]
+            by problem (2) we also know that there must exist some $n_0 \geq m$ such that 
+            \[
+            L^+ - \varepsilon < a_n \leq a_n^+ < \varepsilon + L^+.
+            \]
+            We conclude that for any $n \geq N$
+            \[
+            \vert a_n - L^+ \vert < \varepsilon
+            \]
+            since limits are limit points (problem (5)), we conclude.
+
+            \item[(f)] 
+            $(\implies)$ If $(a_n)$ converges to $c$ then $c$ is a limit point and the sequence is bounded,
+            therefore $L^+$ and $L^-$ are finite. 
+            So by item (d)
+            \[
+            L^- \leq c \leq L^+.
+            \]
+            Suppose that
+            \[
+            L^- < c < L^+.
+            \]
+            By definition of convergence, for any $\varepsilon > 0$ there exists some $N \geq m$ such that for any $n \geq N$
+            \[
+            \vert a_n - c \vert \leq \varepsilon
+            \]
+            and in particular we can set $\varepsilon := L^+ - c$, hence we can find 
+            some $N_0$ such that for any $n \geq N_0$
+
+            % then at the right hand side 
+            % \[
+            % a_n \leq \frac{L^+ - c}{2} + c = \frac{L^+ + c}{2} < L^+.
+            % \]
+            % Similarly for the left hand side we end up getting 
+            % \[
+            % a_n \geq \frac{c-L^+}{2} + c = \frac{3c-L^+}{2} \geq \frac{-4L^+}{2} = -2L^+.
+            % \]
+            
+
         \end{enumerate}
 
         \begin{flushright}
@@ -253,6 +387,21 @@
         \[
             \liminf_{n \to \infty} a_n \leq \liminf_{n \to \infty} b_n
         \]
+        $\textbf{Solution.}$
+        \begin{enumerate}
+            \item Suppose for the sake of contradiction that $\sup(a_n) > \sup(b_n)$,
+            then $\sup(a_n) > b_n$ for any $n \geq m$.
+            Hence $\sup(a_n)$ is an upper bound for $b_n$ for any $n \geq m$. 
+            By hypothesis, since $b_n \geq a_n$ then
+            \[
+            \sup(a_n) > \sup(b_n) \geq b_n \geq a_n
+            \]
+            so $\sup(b_n)$ is a smaller upper bound than $\sup(a_n)$, a contradiction.
+
+            \item The case for infimum is analogous as the one before.
+            
+            \item 
+        \end{enumerate}
 
         \item \textbf{(Squeeze test.)}
         Let $(a_n)_{n=m}^{\infty}$, $(b_n)_{n=m}^{\infty}$, and $(c_n)_{n=m}^{\infty}$ be sequences of real numbers such that

@@ -135,6 +135,63 @@
         and let \( k \) be an integer. Then
         \( \sum_{n=m+k}^{\infty} a_{n-k} \) also converges to \( x \).
     \end{enumerate}
+    $\textbf{Solution.}$
+    Let $T_N = \sum_{n=m}^{N}a_n$ and $R_N = \sum_{n=m}^{N}b_n$.
+    \begin{enumerate}
+        \item
+        The partial sum of the series $\sum_{n=m}^{\infty}a_n+b_n$
+        is trivially
+        \[
+        \sum_{n=m}^{N} (a_n + b_n) =  T_N + R_N.
+        \]
+        we also note that by limit laws 
+        \[
+        \lim_{n\to\infty}T_N+R_N = \lim_{n\to\infty}T_N + \lim_{n\to\infty}R_N.
+        \]
+        We conclude that 
+        \[
+        \sum_{n=m}^{\infty}(a_n+b_n) = \lim_{N\to\infty} S_N = \lim_{N\to\infty} T_N + R_N = x+y.
+        \] 
+
+        \item Similarly to the item before, due to the linear properties of both limit and partial sums we get 
+        \[
+        \sum_{n=m}^{N} ca_n = cT_N
+        \]
+        so that $\lim_{N\to\infty} S_N = \lim_{N\to\infty}cT_N = c\lim_{N\to\infty}T_N = cx$.
+
+        \item If $\sum_{n=m}^{\infty}a_n$ converges then
+        the first claim is trivial, follows from convergent limit properties.
+        
+
+        
+
+    \end{enumerate}
+
+    \item \textbf{(Telescoping series)}. Let \( (a_n)_{n=0}^{\infty} \) be a sequence of real numbers which converge to 0, i.e., \( \lim_{n \to \infty} a_n = 0 \). Then the series
+    \[
+    \sum_{n=0}^{\infty} (a_n - a_{n+1})
+    \]
+    converges to \( a_0 \).\\
+    $\textbf{Solution.}$
+    We see that for any partial sum $S_N$ starting from $0$, 
+    \[
+    \sum_{n=0}^{N}a_n - a_{n+1} = \sum_{n=0}^{N}a_n - \sum_{n=0}^{N}a_{n+1}
+    \]
+    doing a substitution $n \rightarrow n + 1$ we get
+    \[
+    S_N = \sum_{n=0}^{N}a_n - \sum_{n=1}^{N+1}a_{n} = a_0 + \sum_{n=1}^{N}a_n - \sum_{n=1}^{N}a_n + a_{N+1}
+    \]
+    therefore, 
+    \[
+    S_N = a_0 - a_{N+1}.
+    \]
+    We notice since $(a_n)$ converges and by using limit laws that
+    \[
+    \lim_{N\to\infty}S_N = \lim_{N\to\infty} a_0 - \lim_{N\to\infty}a_{N+1} = a_0.
+    \]
+    \begin{flushright}
+        \qed
+    \end{flushright}
 
     \item \textbf{(Comparison test.)}
 
@@ -168,16 +225,11 @@
     \[
     \lim_{n\to\infty} \frac{a_n}{a_n^{\frac{1}{n+1}}}.
     \]
-    Note that we cannot use limit laws theorem since we do not know whether $a_n^{\frac{1}{n+1}}$ might converge.
-    Suppose that it converged to $c \in \mathbb{R}$, then
-    \[
-    \lim_{n\to\infty}a_n^{b_n} = \frac{1}{c}\lim_{n\to\infty}a_n = 0.
-    \]
-    Then one thing we shall also verify is that it is bounded above by for example $\frac{1}{n(n+1)}$ thus 
-    by comparison principle the requested series converge.
-
-
 
 \end{enumerate}
 \section*{Series expansions}
+\section*{Application}
+\begin{enumerate}
+    \item \textbf{Kőnig's theorem}.
+\end{enumerate}
 \end{document}
