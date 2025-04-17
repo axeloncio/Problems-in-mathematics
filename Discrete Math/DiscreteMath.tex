@@ -5,6 +5,7 @@
 \usepackage{tikz-cd}
 \usepackage{amssymb} % Required for additional mathematical symbols
 \usepackage{amsthm}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 \usetikzlibrary{automata}
 \newtheorem{lemma}{Lemma}
 \usepackage{mathtools}
@@ -29,8 +30,69 @@
 \end{center}
 \section*{Counting Techniques}
     \begin{enumerate}
+        \item (a) Express \( \sum_{i=0}^{n}\sum_{j=0}^{i}\sum_{k=0}^{j}a_ia_ja_k\) in terms of the multiple-sum notation.\\
+        (b) Express the same sum in terms of $\sum_{i=0}^{n}a_i$, $\sum_{i=0}^{n}a_i^2$, and $\sum_{i=0}^{n}a_i^3$.\\
+
+        \item There are \( n \) sticks of length \( 1, 2, \ldots, n \). 
+        How many incongruent triangles can be formed by using three of the given sticks?
+        \begin{remark}
+            This is a solved problem in Andreescu's book, but it is worth giving a try with the concepts of summations over sets.
+        \end{remark}
+        $\textbf{Solution.}$
+        Let $a, b, c \in \{1,\dots, n\}$ without loss of generality assume $a \leq b \leq c$, in fact we see automatically get $a + c \geq b$ and $b + c \geq a$, thus 
+        by triangle inequality remains counting all subsets $\{a,b,c\}$ such that $a + b \geq c$.
+
+        The cardinality of the set $S$ of all unordered triplets of the form $\{a,b,c\}$ is given by 
+        choosing with possible repetition three numbers between $1$ to $n$, thus using combinations with repetition formula
+        \[
+        \binom{n+3-1}{3} = \binom{n+2}{3}.
+        \]
+
+        Then we can count all ``failing'' triplets in which $a + b \leq c$ so that $b \leq c - a$, hence by construction 
+        \[
+        a \leq b \leq c - a.
+        \]
+        In other words, fixing $c$ we can iterate $b$ over the interval $a \leq c-a$ that results into $a \leq \left\lfloor \frac{c}{2} \right\rfloor$,
+        the amount of positive $b's$ in that range is $(c-a) - a + 1 = c-2a+1$
+        Hence, 
+        \[
+        \sum_{c=1}^{n}\sum_{a=1}^{\left\lfloor \frac{c}{2} \right\rfloor}c-2a+1 = \sum_{c=1}^{n}\sum_{a=1}^{\left\lfloor \frac{c}{2} \right\rfloor}c - \sum_{c=1}^{n}\sum_{a=1}^{\left\lfloor \frac{c}{2} \right\rfloor}2a + \sum_{c=1}^{n}\sum_{a=1}^{\left\lfloor \frac{c}{2} \right\rfloor}1
+        \]
+        \[
+        = \sum_{c=1}^{n}c\left\lfloor \frac{c}{2} \right\rfloor - \sum_{c=1}^{n}2\frac{\left\lfloor \frac{c}{2} \right\rfloor \left(\left\lfloor \frac{c}{2} \right\rfloor+1\right)}{2} + \sum_{c=1}^{n}\left\lfloor \frac{c}{2} \right\rfloor
+        \]
+        \[
+        = \sum_{c=1}^{n}c\left\lfloor \frac{c}{2} \right\rfloor - \left\lfloor \frac{c}{2} \right\rfloor \left(\left\lfloor \frac{c}{2} \right\rfloor+1\right) + \left\lfloor \frac{c}{2} \right\rfloor
+        \]
+        \[
+        = \sum_{c=1}^{n}\left\lfloor \frac{c}{2} \right\rfloor \left( c - \left(\left\lfloor \frac{c}{2} \right\rfloor + 1\right) + 1\right) = \sum_{c=1}^{n}\left\lfloor \frac{c}{2} \right\rfloor \left( c - \left\lfloor \frac{c}{2} \right\rfloor \right).
+        \]
+        We partition $n$ in even and odd numbers, thus if $c = 2k$ for some $k$ 
+        \[
+        1 \leq 2k \leq n \implies 0 \leq k \leq \left\lfloor \frac{n}{2} \right\rfloor 
+        \]
+        for the remaining odd numbers $c = 2k-1$ we see
+        \[
+        1 \leq 2k-1 \leq n \implies 1 \leq k \leq \left\lfloor \frac{n+1}{2}\right\rfloor.
+        \]
+        Let $n = 2m$, then we notice that 
+        \[
+        \left\lfloor \frac{2m+1}{2} \right\rfloor = m
+        \]
+        
+        so the summations result in
+        \[
+        \sum_{k=0}^{m}2k\left(2k-\frac{2k}{2}\right) + \sum_{k=1}^{m}(2k+1)\left(2k+1-k\right)
+        \]
+        the result follows.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
         \item If 8 identical blackboards are to be divided among 4 schools, how many divisions are possible? 
         How many if each school must receive at least 1 blackboard?
+        \\$\textbf{Solution.}$
+
 
         \item An elevator starts at the basement with 8 people (not including the elevator operator) 
         and discharges them all by the time it reaches the top floor, number 6. 
@@ -62,9 +124,150 @@
         \[
         f(1) + f(2) + \dots + f(1999) \text{ is odd}.
         \]
-    
+        $\textbf{Solution.}$
+        In general the sum $a_1 + \dots + a_n$ is odd if and only if there is an odd amount of odd numbers.
+        We can easily verify this claim by induction on $n$ as follows.
+        \begin{enumerate}
+            \item[\textbf{Basis.}] If $n = 1$ then if the sum $a_1$ is odd, we see that there is just one odd term $a_1$. 
+            Conversely if there is an odd term $a_1$, then the sum $a_1$ is odd.
+            \item[\textbf{Hypothesis.}] Assume that for any $n$ we had that the sum 
+            \[
+            S_n = a_1 + a_2 + \cdots + a_n
+            \]
+            is odd if and only if there is an odd amount of odd numbers.
+            \item[\textbf{Thesis.}] Consider a sum $S_{n+1}$ with $n+1$ terms 
+            \[
+            S_{n+1} = \sum_{i=1}^{n+1}a_i = S_n + a_{n+1}.
+            \]
+            \item[$(\implies)$]
+            If $S_{n}$ is odd then by hypothesis there is a odd amount of odd numbers.
+            $S_{n+1}$ is odd only if $a_{n+1}$ is even, otherwise we know that $odd + odd = even$.
+            Since the amount of odd numbers in $S_n$ is odd by hypothesis and $a_{n+1}$ is even, the amount of odd terms in this case remains the same and the thesis holds.
+            
+            If $S_{n}$ is even by contrapositive of the hypothesis, there is an even amount of odd terms. This implies that $a_{n+1}$ is an odd number, 
+            and since $even + odd = odd$, the amount of odd terms in $S_{n+1}$ is odd.
+
+            \item[$(\impliedby)$]
+            Reciprocally, if $S_n$ has an odd amount of odd numbers then $S_n$ is odd,
+            therefore $S_{n+1}$ has odd amount of odd numbers only if $a_{n+1}$ is even.
+            Since $a_{n+1}$ is even $S_{n} + a_{n+1}$ is odd.
+
+            If $S_n$ has an even amount of odd numbers, then $S_n$ is even, therefore $a_{n+1}$ needs to be an odd number in order for $S_{n+1}$ to be odd.
+            This sums up to an odd amount of odd numbers.
+        \end{enumerate}
+        Therefore, the sum 
+        \[
+        F = \sum_{i=1}^{1999}f(i)
+        \]
+        is odd only if there is an odd amount of odd terms.
+        In other words,
+        all relevant $f's$ are $f(i) \mapsto 2001, f(j) \mapsto 2003$ for $i,j = 1,\dots , 1999$.
+        We can count the amount of odd-sized subsets and map to each of their element one of the two values above.
+
+        We claim that the amount of odd-sized subsets is $2^{n-1}$.
+        To prove this claim, by induction on $n$, the cardinality of the set
+        \begin{enumerate}
+            \item[\textbf{Basis.}] If $n = 1$ then there is $2^{1-1} = 1$ subset of odd size.
+            \item[\textbf{Hypothesis.}] Assume that for any set
+            \[
+            A_n = \{a_1,\dots, a_n\}
+            \] 
+            of size $n$ the amount of odd-sized subsets is $2^{n-1}$.
+            \item[\textbf{Thesis.}] We have to show that for a set 
+            \[
+            A_{n+1} = \{a_1,\dots, a_n, a_{n+1}\}
+            \] 
+            we can form $2^{n}$ subsets.
+            Let $A_{n+1} = A_{n} \cup \{a_{n+1}\}$,
+            then by hypothesis we have $2^n - 2^{n-1} = 2^{n-1}$ even-sized subsets in $A_n$, 
+            for each element of any of the subsets $B_k$, we can take $B_k \cup \{a_{n+1}\}$ and thus forming 
+            each of the new odd-sized subsets.
+            Hence, we end up having $2^{n-1} + 2^{n-1} = 2^{n}$ odd-sized subsets. 
+        \end{enumerate}
+        
+        Thus, the amount of functions will be
+        \[
+        2^{1998}\times 2^{1999} = 2^{3997}.
+        \]
+
+        $\textbf{Second Solution.}$
+        Let $E = \{2000, 2002\}$ and $O = \{2001, 2003\}$.
+        Recursively define
+        \[
+        F_n = F_{n-1} + f(n).
+        \]
+        We see that for $F_n$ to be odd it depends entirely on the choice of $f(n)$ (4 possible values) and the parity of $F_{n-1}$.
+        Hence, from the root we can have $4^{n-1}$ configurations until $n$ that condition the choice of the last term.
+        Therefore, choosing out of one of the sets we get that 
+        the amount of functions is  
+        \[
+        4^{1998}\times 2 = 2^{3997}.
+        \]
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item In a five-team tournament, each team plays one game with every other team. 
+        Each team has a 50\% chance of winning any game it plays. (There are no ties.) 
+        Compute the probability that the tournament will produce neither an undefeated team nor a winless team.
+        \\ $\textbf{Solution.}$
+        Consider the event $E :=$ ``There are neither an unefeated team nor a winless team''.
+        The complementary event will be $E^{c} :=$ ``There exist an undefeated team or there exist a winless team''.
+        Let $U := $ ``There exist an undefeated team'' and $W :=$ ``There exist a winless team''.
+        
+        We see that by complementarity and inclusion exclusion principle
+        \[
+        P(E) = 1 - P(U \cup W) = 1 - (P(U) + P(W) - P(U \cap W)).
+        \]
+        The probability for any team $E_i$ with $1 \leq i \leq 5$ to be defeatless is given by 
+        \[
+        P(U) = P(E_1) + P(E_2) + P(E_3) + P(E_4) + P(E_5) = 5P(E_1) = 5\left( \frac{1}{2} \right)^4 = \frac{5}{16}
+        \]
+        since they cannot win against themselves (thus the exponent 4).
+        $P(W)$ is the same probability since the probability of winning or losing is the same, thus $P(W) = \frac{5}{16}$.
+
+        The probability $P(U \cap W)$ needs any pair $E_i$ and $E_j$ to be disjoint, i.e. $i \neq j$, since
+        a team cannot be winless and defeatless at the same time.
+        We can find $5 \times 4$ distinct pairs of teams, let $U_i$ mean that the $i$-th team is defeatless and let $W_j$ mean that 
+        the $j$-th team is winless.
+        Since there is only one defeatless and winless team per tournament, each $U_i$ and $W_j$ is mutually exclusive.
+        Therefore, 
+        \[
+        P(U\cap W) = P\left(\bigcup_{1\leq i \neq j \leq 5} U_i \cap W_j \right) = \sum_{1\leq i \neq j \leq 5}P(U_i \cap W_j).
+        \]
+        The amount of games satisfying $U_i \cap W_j$ is:
+        \[
+        (U_i \text{ and } W_j \text{ are fixed}) \times (\text{3 non-fixed game outcomes}) = 1\times 2^3
+        \]
+        hence, 
+        \[
+        P(U_i \cap W_j) = \frac{2^3}{2^{10}} = \frac{1}{2^7}.
+        \]
+        Since this result does not vary if we pick different $i,j$, we conclude that 
+        \[
+        P(U \cap W) = 5\times 4 \frac{1}{2^7} = \frac{5}{2^5} = \frac{5}{32}.
+        \]
+        We end up the resulting probability in 
+        \[
+        P(E) = 1 - \left(2\frac{5}{16} - \frac{5}{32}\right) = 1 - \left(\frac{5}{8} - \frac{5}{32}\right).
+        \]
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
         \item Find the number of two-digit positive integers that are divisible by both of their digits.
-    
+        \\ $\textbf{Solution.}$
+        Let $n = a + 10b$ with $a, b \leq 9$.
+        If $n$ is divisible by $a$ and $b$ then 
+        \[
+        0 \equiv a+10b \Mod a \equiv a + 10b \Mod b.
+        \]
+        Therefore, $10b \Mod a \equiv 0$ therefore there exists some integer $k > 0$ 
+        such that $10b = ka$ and $a \Mod b \equiv 0$ so there exist another integer $m > 0$ such that $a = mb \leq 9$.
+
+        We see that $10b = (mk)b$ and $a = (mk)a$
+
+
         \item For any set \( S \), let \( |S| \) denote the number of elements in \( S \), and let \( n(S) \) be the number of subsets of \( S \), including the empty set and \( S \) itself. If \( A, B, \) and \( C \) are sets for which
 
         \[
@@ -96,8 +299,12 @@
         \item Let \( n \) be an integer greater than four, and let \( P_1P_2 \dots P_n \) be a convex \( n \)-sided polygon. Zachary wants to draw \( n - 3 \) diagonals that partition the region enclosed by the polygon into \( n - 2 \) triangular regions and that may intersect only at the vertices of the polygon. In addition, he wants each triangular region to have at least one side that is also a side of the polygon. In how many different ways can Zachary do this?
         
         \item How many five-digit numbers are divisible by three and also contain 6 as one of their digits?
+        \\$\textbf{Solution.}$
         
+
         \item Two squares on an $8 \times 8$ chessboard are called \emph{touching} if they have at least one common vertex. Determine if it is possible for a king to begin in some square and visit all the squares exactly once in such a way that all moves except the first are made into squares touching an even number of squares already visited.
+        \\$\textbf{Solution.}$
+
 
         \item A total of 119 residents live in a building with 120 apartments. We call an apartment \emph{overpopulated} if there are at least 15 people living there. Every day the inhabitants of an overpopulated apartment have a quarrel and each goes off to a different apartment in the building (so they can avoid each other). Is it true that this process will necessarily be completed someday?
     \end{enumerate}

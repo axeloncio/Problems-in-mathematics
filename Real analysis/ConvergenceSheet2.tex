@@ -398,10 +398,33 @@
             \]
             so $\sup(b_n)$ is a smaller upper bound than $\sup(a_n)$, a contradiction.
 
-            \item The case for infimum is analogous as the one before.
+            \item The case for infimum is analogous to the one before.
             
-            \item 
+            \item Suppose for the sake of contradiction that 
+            \[
+            \limsup_{n\to\infty} a_n > \limsup_{n\to\infty} b_n
+            \]
+            hence, $L_{a}^+ > L_{b}^+$, then
+            for any $N \geq m$ it holds that
+            \[
+            a_n > L_{b}^+
+            \]
+            for some $n \geq N$.
+            This implies that fixing $n_0 \geq N$ there must also exist some $N' \geq m$ such that for any $n \geq N'$
+            \[
+            b_n < a_{n_0}.
+            \]
+            Then, we let $N = N'$ so that we can fix any $a_{n} \geq N'$ so in particular we must have 
+            \[
+            b_{n_0} < a_{n_0}.
+            \]
+            A contradiction, since $a_{n} \leq b_{n}$ for any $n \geq m$.
+            
+            \item The case for the infimum is analogous to the one before.
         \end{enumerate}
+        \begin{flushright}
+            \qed
+        \end{flushright}
 
         \item \textbf{(Squeeze test.)}
         Let $(a_n)_{n=m}^{\infty}$, $(b_n)_{n=m}^{\infty}$, and $(c_n)_{n=m}^{\infty}$ be sequences of real numbers such that
@@ -409,10 +432,183 @@
         a_n \leq b_n \leq c_n
         \]
         for all $n \geq m$. Suppose also that $(a_n)_{n=m}^{\infty}$ and $(c_n)_{n=m}^{\infty}$ both converge to the same limit $L$. Then $(b_n)_{n=m}^{\infty}$ is also convergent to $L$.
+        \\$\textbf{Solution.}$
+        Since $(a_n)$ and $(c_n)$ both converge to $L$, then by problem (6f) we must have 
+        \[
+        L_{a}^+ = L_{c}^+ = L = L_{c}^- = L_{a}^{-}.
+        \]
+        And all of them are finite.
+        By problem (7) we also know that since $a_n \leq b_n \leq c_n$
+        \[
+        \limsup_{n\to\infty}a_n \leq \limsup_{n\to\infty} b_n \leq \limsup_{n\to\infty} c_n
+        \]
+        \[
+        \liminf_{n\to\infty}a_n \leq \liminf_{n\to\infty} b_n \leq \liminf_{n\to\infty} c_n.
+        \]
+        We conclude that $L_{b}^- = L_{b}^{+} = L$.
+        \begin{flushright}
+            \qed
+        \end{flushright}
 
         \item \textbf{(Zero test for sequences.)}
-        Let $(a_n)_{n=M}^\infty$ be a sequence of real numbers. Then the limit $\lim_{n \to \infty} a_n$ exists and is equal to zero if and only if the limit $\lim_{n \to \infty} |a_n|$ exists and is equal to zero.
+        Let $(a_n)_{n=m}^\infty$ be a sequence of real numbers. Then the limit $\lim_{n \to \infty} a_n$ exists and is equal to zero if and only if the limit $\lim_{n \to \infty} |a_n|$ exists and is equal to zero.
+        \\ $\textbf{Solution.}$
+        \begin{enumerate}
+            \item[$(\implies)$]
+            If $a_n$ converges to 0, since $\vert a_n \vert \geq a_n$ for any $n \geq 1$ we expect that 
+            if the limit exists, then $\lim_{n\to\infty}\vert a_n \vert \geq 0$.
+            To prove that the limit exists, we note that since $(a_n)$ converges to zero, then for 
+            any $\varepsilon > 0$ there must exist some $N \geq m$ such that for any $n \geq N$
+            \[
+            \vert a_n \vert \leq \varepsilon
+            \]
+            we see that this immediately tells us that 
+            \[
+            \vert \vert a_n \vert \vert \leq \varepsilon.
+            \]
+            Thus, in fact $(\vert a_n \vert)$ does converge, and it converges to zero.
+
+            % suppose for the sake of contradiction that $L_{\vert a_n \vert}^+ \neq L_{\vert a_n \vert}^{-}$.
+            % Therefore we must have $L_{\vert a_n \vert}^{+} > L_{\vert a_n \vert}^{-}$.
+            
+            % Hence, 
+            % \[
+            % \limsup_{n\to\infty}(\vert a_n\vert) > \liminf_{n\to\infty}(\vert a_n \vert)
+            % \]
+            % and consequently
+            % \[
+            % \inf(\vert a_m \vert^+) > \sup(\vert a_m \vert^-).
+            % \]
+            % We can define two subsequences of $a_n$: $(b_n)$ and $(c_n)$. 
+            % Both of them will converge since the main one converges.
+            % Let $b_n = a_{f(n)}$ such that $f(n)$ outputs each natural number such that $a_n \leq 0$
+            % and let $c_n = a_{g(n)}$ such that $g(n)$ outputs each natural number such that $a_n > 0$.
+            
+            % We can express $\vert a_n \vert$ by the formula 
+            % \begin{center}
+            %     $
+            %     \vert a_n \vert := 
+            %     \begin{cases}
+            %         \vert b_n \vert & \text{ if } n = f(n)\\
+            %         c_n & \text{ if } n = g(n)
+            %     \end{cases}.$
+            % \end{center}
+            % Notice that if $\sup(\vert a_n\vert)_{n=m}^{M} = \vert b_{n_0} \vert$ then it necessarily implies that $\inf(a_n)_{n=m}^{M} = b_{n_0}$.
+            % Since $(a_n)$ converges to 0, then for any $\varepsilon > 0$ there exists some $N \geq m$ such that for any $n\geq N$
+            % \[
+            % \vert a_n \vert \leq \varepsilon 
+            % \]
+            % and by construction
+            % \[
+            % -\varepsilon \leq a_{f(n)} \leq 0 \text{ and } 0 < a_{g(n)} \leq \varepsilon.
+            % \]
+            % This implies that 
+            % \[
+            % 0 \leq -a_{f(n)} = \vert a_{f(n)}\vert \leq \varepsilon \text{ and } 0 < a_{g(n)} \leq \varepsilon.
+            % \]
+            % In other words,
+            % \[
+            % \sup(\vert a_n \vert)_{n=m}^{M} = a_{f(M_0)} \text{ or } a_{g(M_0)} \leq \varepsilon. 
+            % \]
+            % but letting $\varepsilon = \min\{a_{f(M_0)}, a_{g(M_0)}\}$ there exists some $N' \geq m$ such that
+            % for $f(M_1), g(M_1) \geq N'$ 
+            % \[
+            % \sup(\vert a_n \vert)_{n=N'}^{M'} = a_{f(M_1)} \text{ or } a_{g(M_1)} \leq \min\{a_{f(M_0)}, a_{g(M_0)}\} \leq \sup(\vert a_n \vert)_{n=m}^{M}.
+            % \]
+            % In general, we have 
+
+            \item[$(\impliedby)$] If $\lim_{n\to\infty}\vert a_n \vert$ exists and it is equal to zero, similarly, for any $\varepsilon > 0$ 
+            there must exist some $N \geq m$ such that if $n \geq N$ then 
+            \[
+            \vert \vert a_n \vert \vert \leq \varepsilon.
+            \]
+            Analogously to the case before, since $\vert a_n \vert \geq 0$, then $\vert \vert a_n \vert \vert = \vert a_n \vert$,
+            thus 
+            \[
+            \vert a_n \vert \leq \varepsilon.
+            \]
+        \end{enumerate}
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        \item Let us say that a sequence \( (a_n)_{n=M}^{\infty} \) of real numbers has \( +\infty \) as a limit point iff it has no finite upper bound, and that it has \( -\infty \) as a limit point iff it has no finite lower bound. With this definition, show that
+        \[
+        \limsup_{n \to \infty} a_n
+        \]
+        is a limit point of \( (a_n)_{n=M}^{\infty} \), and furthermore that it is larger than all the other limit points of \( (a_n)_{n=M}^{\infty} \); in other words, the limit superior is the largest limit point of a sequence. 
+        Similarly, show that the limit inferior is the smallest limit point of a sequence. (One can use Proposition 6.4.12 in the course of the proof.)
+
+        \item Let \( (a_n)_{n=N}^{\infty} \) be a sequence of real numbers, and let \( (b_m)_{m=M}^{\infty} \) 
+        be another sequence of real numbers such that each \( b_m \) is a limit point 
+        of \( (a_n)_{n=N}^{\infty} \). 
+        Let \( c \) be a limit point of \( (b_m)_{m=M}^{\infty} \). Prove that \( c \) is also a limit point of \( (a_n)_{n=N}^{\infty} \). 
+        (In other words, limit points of limit points are themselves limit points of the original sequence.)
+
+        \item If \( a \) and \( b \) are positive numbers and \( p \) an arbitrary nonzero real number, then the mean of order \( p \) of the numbers \( a \) and \( b \) is the quantity  
+        \[
+        S_p(a, b) = \left( \frac{a^p + b^p}{2} \right)^{\frac{1}{p}}.
+        \]
+        
+        In particular for \( p = 1 \) we obtain the arithmetic mean of \( a \) and \( b \), for \( p = 2 \) their square-mean, and for \( p = -1 \) their harmonic mean.
+        
+        \begin{enumerate}
+            \item[(a)] Show that the mean \( S_p(a, b) \) of any order lies between the numbers \( a \) and \( b \).
+            
+            \item[(b)] Find the limits of the sequences  
+            \[
+            \{ S_n(a, b) \}, \quad \{ S_{-n}(a, b) \}.
+            \]
+        \end{enumerate}
+
+        \item Show that if \( a > 0 \), 
+        the sequence \( x_{n+1} = \frac{1}{2} \left( x_n + \frac{a}{x_n} \right) \) converges to the square root of \( a \) for any \( x_1 > 0 \).
+        Estimate the rate of convergence, that is, the magnitude of the absolute error \( |x_n - \sqrt{a}| = |\Delta_n| \) as a function of \( n \).
+
+        \item Show that a number \( x \in \mathbb{R} \) is rational 
+        if and only if its \( q \)-ary expression in any base \( q \) is periodic, 
+        that is, from some rank on it consists of periodically repeating digits.
+
+        \item We mark all the points on a circle obtained from a fixed point by rotations of the circle through angles of \( n \) radians, 
+        where \( n \in \mathbb{Z} \) ranges over all integers. 
+        Describe all the limit points of the set so constructed.
+        
     \end{enumerate}
+\section*{Subsequences}
+\begin{enumerate}
+    \item Let $(a_n)_{n=0}^\infty$, $(b_n)_{n=0}^\infty$, and $(c_n)_{n=0}^\infty$ be sequences of real numbers. Then $(b_n)_{n=0}^\infty$ is a subsequence of $(a_n)_{n=0}^\infty$. 
+    Furthermore, if $(b_n)_{n=0}^\infty$ is a subsequence of $(a_n)_{n=0}^\infty$, and $(c_n)_{n=0}^\infty$ is a subsequence of $(b_n)_{n=0}^\infty$, 
+    then $(c_n)_{n=0}^\infty$ is a subsequence of $(a_n)_{n=0}^\infty$.
+    \\$\textbf{Solution.}$
+    
+
+    \item Let $(a_n)_{n=0}^\infty$ be a sequence of real numbers, and let $L$ be a real number. Then the following two statements are logically equivalent (each one implies the other):
+
+    \begin{enumerate}
+        \item[(a)] The sequence $(a_n)_{n=0}^\infty$ converges to $L$.
+        \item[(b)] Every subsequence of $(a_n)_{n=0}^\infty$ converges to $L$.
+    \end{enumerate}
+
+    \item Let $(a_n)_{n=0}^\infty$ be a sequence of real numbers, and let $L$ be a real number. Then the following two statements are logically equivalent:
+
+    \begin{enumerate}
+        \item[(a)] $L$ is a limit point of $(a_n)_{n=0}^\infty$.
+        \item[(b)] There exists a subsequence of $(a_n)_{n=0}^\infty$ which converges to $L$.
+    \end{enumerate}
+
+    \item Can you find two sequences $(a_n)_{n=0}^\infty$ and $(b_n)_{n=0}^\infty$ 
+    which are not the same sequence, but such that each is a subsequence of the other?
+
+    \item Let $(a_n)_{n=0}^\infty$ be a sequence which is not bounded. 
+    Show that there exists a subsequence $(b_n)_{n=0}^\infty$ of $(a_n)_{n=0}^\infty$ 
+    such that $\lim_{n \to \infty} 1/b_n$ exists and is equal to zero. 
+
+    (Hint: for each natural number $j$, recursively introduce the quantity 
+    \[ n_j := \min\{n \in \mathbb{N}: |a_n| \geq j; n > n_{j-1}\} \] 
+    (omitting the condition $n > n_{j-1}$ when $j = 0$), 
+    first explaining why the set $\{n \in \mathbb{N}: |a_n| \geq j; n > n_{j-1}\}$ is non-empty. 
+    Then set $b_j := a_{n_j}$.)
+\end{enumerate}
 \section*{Subsets of the real line}
 \section*{Limits and continuity}
 \end{document}
