@@ -45,7 +45,7 @@
         Automata theory problems from the book ''Automata Theory, Languages, and Computation'' by J. Ullman.
     }
 \end{center}
-\section*{DFA and NFA equivalence}
+\section*{NFA}
 \begin{enumerate}
     \item \textbf{(Equivalence theorem.)}
     If \( D = (Q_D, \Sigma, \delta_D, \{q_0\}, F_D) \) is the DFA constructed from NFA 
@@ -107,7 +107,6 @@
         \NN{q_0}{w} \stackrel{def}{=} \bigcup_{i=1}^{m}\delta_N(p_i,a) = \delta_D(S,a) \stackrel{(3)}{=} \DD{q_0}{w}.
         \]
     \end{enumerate}
-    Since 
     Conversely, to prove that a DFA $D = (Q_D, \Sigma, \delta_D, \{q_0\}, F_D)$ induced language is the same as some NFA language, 
     by structural induction on $n$, the lenght of the input string, we define the NFA $N$ as 
     \begin{enumerate}
@@ -127,8 +126,8 @@
         \qed
     \end{flushright}
 
-    \item \textbf{(Worst case.)} Show that there exists a NFA with $n$ states such that equivalent DFA  
-    has $2^n$ states.\\
+    \item \textbf{(Worst case.)} Show that there exists a NFA with $n$ states whose equivalent DFA  
+    has exactly $2^n$ states.\\
     $\textbf{Solution.}$
     We shall build an NFA that accepts univocally the language
     \[
@@ -273,8 +272,350 @@
     \begin{flushright}
         \qed
     \end{flushright}
+    \item Give nondeterministic finite automata to accept the following languages. Try to take advantage of nondeterminism as much as possible.
+
+    \begin{enumerate}
+        \item[(a)] The set of strings over alphabet $\{0, 1, \ldots, 9\}$ such that the final digit has appeared before.
+        
+        \item[(b)] The set of strings over alphabet $\{0, 1, \ldots, 9\}$ such that the final digit has not appeared before.
+        
+        \item[(c)] The set of strings of $0$'s and $1$'s such that there are two $0$'s separated by a number of positions that is a multiple of $4$. Note that $0$ is an allowable multiple of $4$.
+    \end{enumerate}
+    $\textbf{Solution.}$
+    \begin{enumerate}
+        \item Consider the simpler automaton that accepts any string that ends in 9 and also has at least a 9 before.
+        \begin{center}
+            \begin{tikzpicture}[shorten >= 1pt, node distance= 1cm, auto]
+                \node[state, initial](q_0) {$q_0$};
+                \node[state](q_1)[right=of q_0] {$q_1$};
+                \node[state, accepting](q_2)[right=of q_1] {$q_2$};
+
+                \path[->]
+                (q_0) edge[loop above] node{$0,\dots, 8$} ()
+                (q_0) edge node{$9$} (q_1)
+                (q_1) edge[loop below] node{$0,\dots, 9$} ()
+                (q_1) edge node{$9$}(q_2)
+                ;
+            \end{tikzpicture}
+        \end{center}
+        The state $q_0$ handles all the symbols that are not $9$, when it handles the symbol $9$ it transitions to $q_1$,
+        this means that ``in between'' the string there is a $9$. Then, $q_1$ will not transition until it ``guesses'' it has finished with a $9$.
+
+        We can build each automaton of this form for each number from 0 to 9.
+        The final automaton needs to start at $q_0$ and bifurcate in 9 branches, each of whom will be the 
+        above automaton.
+
+        Hence the automaton is given by
+        \begin{center}
+            \begin{tikzpicture}[shorten >= 1pt, node distance= 1cm, auto]
+                \node[state, initial](q_0) {$q_0$};
+                \node[state](q_9)[right=of q_0] {$q_9$};
+                \node[state, accepting](q_f)[right=of q_9] {$q_f$};
+
+                \node[state](q_8)[below=1.5cm of q_9] {$q_8$};
+                \node[state](q_1)[below=2cm of q_8] {$q_0'$};
+                \node(dots)[below=0.75cm of q_8]{$\vdots$};
+
+                \path[->]
+                (q_0) edge[loop above] node{$0,\dots, 9$} ()
+                (q_0) edge node{$9$} (q_9)
+                (q_0) edge[bend right = 30] node{$8$} (q_8)
+                (q_0) edge[bend right = 40] node{$1$} (q_1)
+
+                (q_8) edge[bend right = 30] node{$8$} (q_f)
+                (q_8) edge[loop below] node{$0,\dots, 9$} ()
+
+                (q_1) edge[bend right = 40] node{$1$} (q_f)
+
+                (q_9) edge[loop below] node{$0,\dots, 9$} ()
+                (q_9) edge node{$9$}(q_f)
+                (q_1) edge[loop below] node{$0,\dots, 9$} ()
+                ;
+            \end{tikzpicture}
+        \end{center}
+        In this case $q_0$ has a loop with transitions for any $0,\dots, 9$ because 
+        it handles the cases in which we do not know the ending digit, if we did not put that loop, then 
+        it would mean that the first digit must be the last one, which is not necessarily the language we want to compute.
+
+        \item This NFA can be done normally or with epsilon transitions, 
+        with epsilon transitions the amount of states of this automaton will be fewer.
+        
+        We let the starting state $q_0$ have an epsilon transition to 10 possible branches,
+        the first state of each of these branches will be called $S_i$ for $0 \leq i \leq 9$ and will represent 
+        the guess that the digit $i$ is not in the prefix of the string.
+        
+        Let $A_i$ be an accepting state in each of the branches. 
+        We define our simple transition function for any symbol $a = 0,\dots, 9$ as 
+        \begin{center}
+            $\delta(S_i, a) := 
+            \begin{cases}
+                S_i & \text{ if } a \neq i\\
+                A_i & \text{ if } a = i
+            \end{cases}$
+        \end{center}
+
+        and for handling that the branches ``guess'' was wrong (the symbol appeared in the prefix, or did not know what the last symbol was), 
+        that branch must die
+        \begin{center}
+            $\delta(A_i, a) := \varnothing$ for any $a \in \Sigma$.
+        \end{center}
+        
+        By induction on $\vert w \vert$ we observe the behaviour of the extended transition function.
+        \begin{enumerate}
+            \item[\textbf{Basis.}] If $\vert w \vert = 1$ so that $w = a$, then 
+            % todos los estados S_0, ..., S_9 deben quedar en standby
+            \[
+            \hat{\delta}(q_0, \varepsilon a) = \texttt{ECLOSE}\left(\bigcup_{i=0}^{9}\delta(S_i, a)\right)
+            \]
+            \[
+            = \texttt{ECLOSE}(\delta(S_0,a) \cup \cdots \cup \delta(S_a,a) \cup \cdots \cup \delta(S_9,a))
+            \]
+            which by construction results in
+            \[
+            \texttt{ECLOSE}(S_0 \cup \cdots \cup A_a \cup \cdots S_9) = \{S_0, \dots, S_{a-1}, A_a, S_{a+1} \dots, S_9\}.
+            \]
+            \item[\textbf{Hypothesis.}] Assume that for $\vert w \vert = n$ with $w = xa$ it holds that
+            if $a \notin x$, then
+            \[
+            \hat{\delta}(q_0, xa) = \{S_0, \dots, S_{a-1}, A_a, S_{a+1} \dots, S_9\},
+            \]
+            and if $a \in x$ then 
+            $\hat{\delta}(q_0,w)$ does not contain any accepting state $A_i$ for no $i$ nor contains $S_a$ (the branch became unusable).
+
+            \item[\textbf{Thesis.}] Suppose we have a string $w' = xab$ such that $\vert w' \vert = n+1$.
+            
+            For the case $a \notin x$, by hypothesis
+            \[
+            \hat{\delta}(q_0, xa) = \{S_0, \dots, S_{a-1}, A_a, S_{a+1} \dots, S_9\}
+            \]
+            therefore if $b = a$ or $b \in x$, by construction we have that
+            \[
+            \delta(A_a, b) = \delta(A_a, a) = \varnothing
+            \]
+            so in particular we have that 
+            \[
+            \hat{\delta}(q_0, xab) = \bigcup_{p\in\hat{\delta}(q_0,xa)}\delta(p,b) =\{S_0, \dots, S_{a-1}, S_{a+1} \dots, S_9\}.
+            \]
+            Else, if $b \neq a$ and $b\notin x$, $A_a$ must die and $A_b$ must remain:
+            \[
+            \hat{\delta}(q_0, xab) = \bigcup_{p\in\hat{\delta}(q_0,xa)}\delta(p,b) =\{S_0, \dots, S_{b-1}, A_{b}, S_{b+1} \dots, S_9\}.
+            \]
+            The last $\texttt{ECLOSE}$ yields the same results, so it is unnecessary.
+            
+            For the case $a \in x$, by hypothesis
+            \[
+            \hat{\delta}(q_0, xa) = \{S_0,\dots, S_{a-1}, S_{a+1} S_9\} 
+            \]
+            then, if $b = a$ nothing changes.
+            If $b \neq a$ then
+            \[
+            A_b \in \hat{\delta}(q_0, xab).
+            \]
+            and there is no other $A_i \in \hat{\delta}(q_0, xab)$ for no $i$. 
+        \end{enumerate}
+        A transition diagram of this automaton is 
+        \begin{center}
+            \begin{tikzpicture}[shorten >=1pt, node distance=1cm, auto]
+                \node[state, initial](q_0) {$q_0$};
+                \node[state](S_0)[above right=of q_0] {$S_0$};
+                \node(dots1)[below=0.5cm of S_0] {$\vdots$};
+                \node[state](S_9)[below=of dots1] {$S_9$};
+
+                \node[state,accepting](A_0)[right=of S_0] {$A_0$};
+                \node(dots2)[below=0.5cm of A_0] {$\vdots$};
+                \node[state,accepting](A_9)[right=of S_9] {$A_9$};
+
+                \node[](dies0)[right=of A_0] {$dies$};
+                \node[](dies9)[right=of A_9] {$dies$};
+                \path[->]
+                (q_0) edge[below] node{$\varepsilon$}(S_0)
+                (q_0) edge[above] node{$\varepsilon$}(S_9)
+                
+                (S_0) edge[loop above] node{$1,\dots,9$}()
+                (S_9) edge[loop below] node{$0,\dots,8$}()
+                
+                (S_0) edge[] node{$0$}(A_0)
+                (S_9) edge[] node{$9$}(A_9)
+                
+                (A_0) edge[] node{$\Sigma$}(dies0)
+                (A_9) edge[] node{$\Sigma$}(dies9)
+                ;
+            \end{tikzpicture}
+        \end{center}
+
+        \item 
+        The automaton is given by the following transition diagram
+        \begin{center}
+            \begin{tikzpicture}[shorten >= 1pt, node distance=1cm, auto]
+                \node[state, initial](q_s) {$q_s$};
+                \node[state,accepting](q_A)[below right =1.5cm of q_s] {$q_A$};
+                \node[state](q_c0)[right=of q_s] {$q_{c0}$};
+                \node[state](q_c1)[right=of q_c0] {$q_{c1}$};
+                \node[state](q_c2)[right=of q_c1] {$q_{c2}$};
+                \node[state](q_c3)[right=of q_c2] {$q_{c3}$};
+                \path[->]
+                (q_s) edge[] node{$0$}(q_c0)
+                (q_s) edge[loop above] node{$0,1$}()
+
+                (q_c0) edge[] node{$0$}(q_A)
+
+                (q_c0) edge[] node{$1$}(q_c1)
+                
+                (q_c1) edge[] node{$1$}(q_c2)
+                (q_c1) edge[bend left=40] node{$0$}(q_c0)
+
+                (q_c2) edge[] node{$1$}(q_c3)
+                (q_c2) edge[bend left=60] node{$0$}(q_c0)
+
+                (q_c3) edge[bend right=40] node{$1$}(q_c0)
+                (q_c3) edge[bend left= 40] node{$0$}(q_A)
+                ;
+            \end{tikzpicture}
+        \end{center}
+        % este NFA hacia algo distinto, NO ACEPTABA strings que tuviesen 0 a distancia multiplo de 4, que no era lo pedido
+        % \begin{center}
+        %     \begin{tikzpicture}[shorten >=1pt, node distance = 1cm, auto]
+        %         \node[state, initial](q_0) {$q_0$};
+        %         \node[state,accepting](q_1)[right=of q_0] {$q_1$};
+        %         \node[state](q_2)[right=of q_1] {$q_2$};
+        %         \node[state,accepting](q_3)[right=of q_2] {$q_3$};
+        %         \node[state](q_4)[right=of q_3] {$q_4$};
+        %         \node(dies1)[below left=of q_1] {$dies$};
+        %         \node(dies2)[below left=of q_4] {$dies$};
+                
+        %         \path[->]
+        %         (q_0) edge[] node{$0,1$}(q_1)
+        %         (q_0) edge[loop above] node{$1$}()
+
+        %         (q_1) edge[] node{$1$}(q_2)
+        %         % (q_1) edge[loop above] node{$1$}()
+        %         (q_1) edge[] node{$0$}(dies1)
+
+        %         (q_2) edge[] node{$1$}(q_3)
+        %         % (q_2) edge[loop above] node{$1$}()
+        %         (q_2) edge[bend left=40] node{$0$}(q_1)
+
+        %         (q_3) edge[] node{$1$}(q_4)
+        %         % (q_3) edge[loop above] node{$1$}()
+        %         (q_3) edge[bend left=70] node{$0$}(q_1)
+                
+        %         (q_4) edge[] node{$0$}(dies2)
+        %         (q_4) edge[bend right= 30] node{$1$}(q_1)
+        %         ;
+        %     \end{tikzpicture}
+        % \end{center}
+    \end{enumerate}
+    \begin{flushright}
+        \qed
+    \end{flushright}
+
 \end{enumerate}
 \section*{$\varepsilon$-NFA}
+\begin{enumerate}
+    \item (\textbf{Equivalence theorem.}) A language $L$ is accepted by 
+    some $\varepsilon$-NFA if and only if $L$ is accepted by some DFA.
+    \\$\textbf{Solution}$
+    \begin{enumerate}
+        \item[$(\implies)$]
+    \end{enumerate}
 
+    \item Design $\varepsilon$-NFA's for the following languages. Try to use $\epsilon$-transitions to simplify your design.
+
+    \begin{enumerate}
+        \item[(a)] The set of strings consisting of zero or more $a$'s followed by zero or more $b$'s, followed by zero or more $c$'s.
+    \end{enumerate}
+    
+    \begin{enumerate}
+        \item[(b)] The set of strings that consist of either 01 repeated one or more times or 010 repeated one or more times.
+        
+        \item[(c)] The set of strings of 0's and 1's such that at least one of the last ten positions is a 1.
+    \end{enumerate}
+    $\textbf{Solution.}$
+    \begin{enumerate}
+        \item This automaton will have the following transition diagram, the design is self-explanatory
+        \begin{center}
+            \begin{tikzpicture}[shorten >= 1pt, node distance=1cm, auto]
+                \node[state,initial](q_0) {$q_0$};
+                \node[state](q_1)[right=of q_0] {$q_1$};
+                \node[state](q_2)[below left=of q_1] {$q_2$};
+                \node[state,accepting](q_3)[right=of q_2] {$q_3$};
+
+                \path[->]
+                (q_0) edge[bend left, above] node{$\varepsilon, a$} (q_1)
+                (q_1) edge[bend right] node{$\varepsilon, b$}(q_2)
+                (q_2) edge[bend right, below] node{$\varepsilon,c$}(q_3)
+                
+                (q_1) edge[loop above] node{$a$}()
+                (q_2) edge[loop below] node{$b$}()
+                (q_3) edge[loop right] node{$c$}()
+                ;
+            \end{tikzpicture}
+        \end{center}
+
+        \item In this case we want to bifurcate in two possible paths, one of them will handle 
+        the strings of the form $0101\dots$ and the other will handle the strings of the form $010010\dots$.
+        We can guess what the string will be using an epsilon transition at the beginning.
+        \begin{center}
+            \begin{tikzpicture}[shorten >= 1pt, node distance=1cm, auto]
+                \node[state, initial](q_0) {$q_0$};
+                \node[state](q_1)[above right=of q_0] {$q_1$};
+                \node[state](q_2)[right=of q_1] {$q_2$};
+
+                \node[state](q_3)[below right=of q_0] {$q_3$};
+                \node[state](q_4)[right=of q_3] {$q_4$};
+                \node[state](q_5)[right=of q_4] {$q_5$};
+
+                \node[state,accepting](q_6)[below right=of q_1] {$q_6$};
+
+                \path[->]
+                (q_0) edge[] node{$\varepsilon$}(q_1)
+                (q_0) edge[] node{$\varepsilon$}(q_3)
+                %rama de arriba
+                (q_1) edge[bend right = 30, below] node{$0$}(q_2)
+                (q_2) edge[bend right = 30, above] node{$1$}(q_1)
+                (q_1) edge[bend right, below] node{$\varepsilon$}(q_6)
+                
+                %rama de abajo
+                (q_3) edge[bend left, above] node{$\varepsilon$}(q_6)
+                (q_3) edge[] node{$0$}(q_4)
+                (q_4) edge[] node{$1$}(q_5)
+                (q_5) edge[bend left = 40, below] node{$0$}(q_3)
+                ;
+            \end{tikzpicture}
+        \end{center}
+
+        \item We will have at least 
+    \end{enumerate}
+\end{enumerate}
 \section*{Regular expressions}
+\begin{enumerate}
+        \item Write regular expressions for the following languages:
+        
+        \begin{enumerate}
+            \item[(a)] The set of strings over alphabet $\{a, b, c\}$ containing at least one $a$ and at least one $b$.
+            
+            \item[(b)] The set of strings of $0$'s and $1$'s whose tenth symbol from the right end is $1$.
+            
+            \item[(c)] The set of strings of $0$'s and $1$'s with at most one pair of consecutive $1$'s.
+        \end{enumerate}
+
+        \item Write regular expressions for the following languages:
+        
+        \begin{enumerate}
+            \item[(a)] The set of all strings of $0$'s and $1$'s such that every pair of adjacent $0$'s appears before any pair of adjacent $1$'s.
+            
+            \item[(b)] The set of strings of $0$'s and $1$'s whose number of $0$'s is divisible by five.
+        \end{enumerate}
+
+        \item Write regular expressions for the following languages:
+
+        \begin{enumerate}
+            \item[(a)] The set of all strings of $0$s and $1$s not containing $101$ as a substring.
+            
+            \item[(b)] The set of all strings with an equal number of $0$s and $1$s, such that no prefix has two more $0$s than $1$s, nor two more $1$s than $0$s.
+            
+            \item[(c)] The set of strings of $0$s and $1$s whose number of $0$s is divisible by five and whose number of $1$s is even.
+        \end{enumerate}
+
+\end{enumerate}
 \end{document}
