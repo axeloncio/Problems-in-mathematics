@@ -5,6 +5,8 @@
 \usepackage{amssymb} % Required for additional mathematical symbols
 \usepackage{amsthm}
 
+\newtheorem{lemma}{Lemma}
+
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newenvironment{claim}{\textbf{Claim.}}{}
@@ -19,7 +21,8 @@
 \maketitle
 
 \begin{center}
-    \textit{Problems on convergence of sequences, functions and continuity. The problems are from the books of M. Spivak ``Calculus'', T. Tao ``Analysis I'', R. G. Bartle ``Introduction to Real Analysis''
+    \textit{Problems on convergence of sequences, functions and continuity. The problems are from the books of M. Spivak ``Calculus'', T. Tao ``Analysis I'', Charles C. Pugh ``Real Mathematical Analysis'',
+    Vladimir A. Zorich ``Mathematical Analysis I''
     and Titu Andreescu ``Putnam and Beyond''.}
 \end{center}
 \section*{Suprema and Infima of sequences}
@@ -545,6 +548,12 @@
         Let \( c \) be a limit point of \( (b_m)_{m=M}^{\infty} \). Prove that \( c \) is also a limit point of \( (a_n)_{n=N}^{\infty} \). 
         (In other words, limit points of limit points are themselves limit points of the original sequence.)
 
+        \item Let \( x \) be a real number. 
+        Then the limit \(\lim_{n \to \infty} x^n\) exists and is equal to zero when \(|x| < 1\), 
+        exists and is equal to \(1\) when \(x = 1\), and diverges when \(x = -1\) or when \(|x| > 1\).
+
+        \item For any \( x > 0 \), we have \(\lim\limits_{n \to \infty} x^{1/n} = 1\).
+
         \item If \( a \) and \( b \) are positive numbers and \( p \) an arbitrary nonzero real number, then the mean of order \( p \) of the numbers \( a \) and \( b \) is the quantity  
         \[
         S_p(a, b) = \left( \frac{a^p + b^p}{2} \right)^{\frac{1}{p}}.
@@ -564,15 +573,83 @@
         \item Show that if \( a > 0 \), 
         the sequence \( x_{n+1} = \frac{1}{2} \left( x_n + \frac{a}{x_n} \right) \) converges to the square root of \( a \) for any \( x_1 > 0 \).
         Estimate the rate of convergence, that is, the magnitude of the absolute error \( |x_n - \sqrt{a}| = |\Delta_n| \) as a function of \( n \).
+        $\textbf{Solution.}$
+        Notice that since $x_n, a >0$, by $AM-GM$ inequality
+        \[
+        \frac{1}{2}\left(x_n + \frac{a}{x_n}\right) \geq \sqrt{x_n\cdot \frac{a}{x_n}} = \sqrt{a}.
+        \]
+        In fact for any $n \geq m$ we have the above relation, and thus we can conclude 
+        $(x_n)$ is bounded below by $\sqrt{a}$.
 
-        \item Show that a number \( x \in \mathbb{R} \) is rational 
-        if and only if its \( q \)-ary expression in any base \( q \) is periodic, 
-        that is, from some rank on it consists of periodically repeating digits.
+        We claim that $(x_n)$ is a decreasing sequence. 
+        To prove this claim, consider the difference sequence $x_{n+1}-{x_{n}}$, 
+        We want to show that $x_{n+1} - x_{n} \leq 0$. We observe that 
+        \[
+        x_{n+1} - x_{n} = \left(x_n - \frac{a}{x_n}\right) - x_n = \frac{a-x_{n}^2}{2x_{n}} = \frac{(\sqrt{a}-x_{n})(\sqrt{a}+x_{n})}{2x_{n}}.
+        \]
+        Since $\sqrt{a} \leq x_n$, then $\sqrt{a}-x_n \leq 0$ so the whole ratio becomes negative or zero. This implies that $x_{n+1} \leq x_n$.
+
+        Since $(x_n)$ is a decreasing sequence and it is bounded below by $\sqrt{a}$, it converges.
+        The only thing that remains checking is $\sqrt{a} = \inf(x_n)$.
+        Suppose for the sake of contradiction that there existed another infimum $L > \sqrt{a}$.
+        Thus, for any $n \geq 1$
+        \[
+        x_n \geq L
+        \]
+        since $x_n$ converges, for any $\varepsilon>0$ we can find some $N \geq m$ such that for any $n \geq N$
+        \[
+        x_n -L \leq \varepsilon.
+        \]
+        Let $\varepsilon := \frac{L-\sqrt{a}}{2}$, then 
+        \[
+        x_n - L \leq \frac{L-\sqrt{a}}{2} \implies x_n \leq \frac{L+\sqrt{a}}{2} \leq \frac{x_n+\sqrt{a}}{2}
+        \]
+        but then 
+        \[
+        2x_n \leq x_n + \sqrt{a} < x_n + L \leq 2x_n
+        \]
+        which is a contradiction ($2x_n < 2x_n$).
+        We conclude that $\sqrt{a} = \inf(x_n)$, and thus is the limit of the sequence.
+
+        To find the magnitude of the absolute error, since $x_n - \sqrt{a} = \Delta_n$, then 
+        $x_n = \Delta_n + \sqrt{a}$.
+        This implies that 
+        \[
+        x_{n+1} = \Delta_{n+1} + \sqrt{a}= \frac{1}{2}\left((\Delta_n + \sqrt{a}) + \frac{a}{\Delta_n + \sqrt{a}}\right)
+        \]
+        thus 
+        \[
+        \Delta_{n+1} = \frac{1}{2}\left((\Delta_n + \sqrt{a}) + \frac{a}{\Delta_n + \sqrt{a}}\right) - \sqrt{a}
+        \]
+        operating the right hand side, we get
+        \[
+        \Delta_{n+1} = \frac{1}{2}\left(\frac{\Delta_n^2 + 2\Delta_n\sqrt{a} + 2a}{\Delta_n + \sqrt{a}}\right) - \sqrt{a}
+        \]
+        therefore 
+        \[
+        \Delta_{n+1} = \frac{\Delta_n^2 + 2\Delta_n\sqrt{a} + 2a-2\sqrt{a}\Delta_n-2a}{2(\Delta_n + \sqrt{a})} = \frac{\Delta_n^2}{2(\Delta_n + \sqrt{a})}
+        \]
+        we conclude that 
+        \[
+        \Delta_{n+1} = \frac{\Delta_n^2}{2x_n}.  
+        \]
+        This implies that the error for any subsequent term is quadratic, 
+        although, since $x_n$ converges to $\sqrt{a}$, $(x_n - \sqrt{a})^2 < 1$ for some $n \geq N'$, 
+        and from there on, the error will decrease ``faster''. %not really rigorous
+        \begin{flushright}
+            \qed
+        \end{flushright}
 
         \item We mark all the points on a circle obtained from a fixed point by rotations of the circle through angles of \( n \) radians, 
         where \( n \in \mathbb{Z} \) ranges over all integers. 
         Describe all the limit points of the set so constructed.
+        \\$\textbf{Solution.}$
+        Note that we cannot have directly a full circumference rotation, since $\pi \notin \mathbb{Z}$.
+        We would like to check if eventually, for a fixed point, it is achievable that it returns to its same origin.
+
+        Consider the unitary circumference $C$. Let $x_n$ be any point in $C$ that is at an angle of $n$ radians with respect to $(1,0)$.
         
+
     \end{enumerate}
 \section*{Subsequences}
 \begin{enumerate}
@@ -580,7 +657,23 @@
     Furthermore, if $(b_n)_{n=0}^\infty$ is a subsequence of $(a_n)_{n=0}^\infty$, and $(c_n)_{n=0}^\infty$ is a subsequence of $(b_n)_{n=0}^\infty$, 
     then $(c_n)_{n=0}^\infty$ is a subsequence of $(a_n)_{n=0}^\infty$.
     \\$\textbf{Solution.}$
-    
+    \begin{enumerate}
+        \item To show $(b_n)$ is a subsequence of $(a_n)$ suffices letting $f(n) = n$.
+
+        \item Since $(b_n)$ is a subsequence of $(a_n)$ there exists an increasing function $f: \mathbb{N}\to\mathbb{N}$ such that 
+        $b_n = a_{f(n)}$. Since $(c_n)$ is a subsequence of $(b_n)$ there exists an increasing function $g: \mathbb{N}\to \mathbb{N}$ such that 
+        $c_n = b_{g(n)}$.
+        
+        Therefore, $c_n = b_{g(n)} = a_{(g\circ f)(n)}$.
+        The only thing that remains checking is that $g\circ f$ is an increasing function. 
+        To verify this we note that since $f(n) \geq f(n+1)$ and $g(n) \geq g(n+1)$, then 
+        \[
+        (g\circ f)(n+1) = g(f(n+1)) > g(f(n)) = (g\circ f)(n).
+        \]
+    \end{enumerate}
+    \begin{flushright}
+        \qed
+    \end{flushright}
 
     \item Let $(a_n)_{n=0}^\infty$ be a sequence of real numbers, and let $L$ be a real number. Then the following two statements are logically equivalent (each one implies the other):
 
@@ -588,6 +681,45 @@
         \item[(a)] The sequence $(a_n)_{n=0}^\infty$ converges to $L$.
         \item[(b)] Every subsequence of $(a_n)_{n=0}^\infty$ converges to $L$.
     \end{enumerate}
+    $\textbf{Solution.}$
+    \begin{enumerate}
+        \item[(a) $\implies$ (b)]
+        The following claim will result handful.
+
+        \begin{claim}
+            For any function $f: \mathbb{N} \to \mathbb{N}$ such that $f(n+1) > f(n)$, it holds that for any $n > 0$
+            \[
+            f(n) \geq n.
+            \]
+        \end{claim}
+        \textbf{Proof.} By induction on $n$, 
+        \begin{enumerate}
+            \item[\textbf{Basis}]
+            If $n = 0$, then $f(0)$ is or zero or a positive integer, either case suffices.  
+            \item[\textbf{Hypothesis}]
+            Assume that for any $n$ it holds that $f(n) \geq n$.
+            \item[\textbf{Thesis}] 
+            We want to prove that for the positive integer $n+1$ it holds that $f(n+1) \geq n+1$.
+            By hypothesis $f(n) \geq n$, therefore since $f(n+1) > f(n)$ then $f(n+1) \geq f(n)+1 \geq n + 1$.
+        \end{enumerate}
+        \begin{flushright}
+            $\blacksquare$
+        \end{flushright}
+        Since $(a_n)$ converges to $L$ then for any $\varepsilon > 0$ there exists some $N \geq 0$ such that if $n \geq N$
+        \[
+        \vert a_n - L\vert \leq \varepsilon.
+        \]
+        Using the claim we get that in particular for any $n\geq N$, $f(n) \geq N$ and thus
+        \[
+        \vert a_{f(n)} - L\vert \leq \varepsilon.
+        \]
+
+        \item[(b) $\implies$ (a)] If any subsequence of $(a_n)$ converges to $L$, in particular the subsequence $(a_{f(n)})$ with 
+        $f(n) = n$ converges, this is, the original sequence. 
+    \end{enumerate}
+    \begin{flushright}
+        \qed
+    \end{flushright}
 
     \item Let $(a_n)_{n=0}^\infty$ be a sequence of real numbers, and let $L$ be a real number. Then the following two statements are logically equivalent:
 
@@ -595,9 +727,17 @@
         \item[(a)] $L$ is a limit point of $(a_n)_{n=0}^\infty$.
         \item[(b)] There exists a subsequence of $(a_n)_{n=0}^\infty$ which converges to $L$.
     \end{enumerate}
+    $\textbf{Solution.}$
+
 
     \item Can you find two sequences $(a_n)_{n=0}^\infty$ and $(b_n)_{n=0}^\infty$ 
     which are not the same sequence, but such that each is a subsequence of the other?
+    \\$\textbf{Solution.}$
+    Consider the sequences $(a_n)$, $(b_n)$ with $a_n = (-1)^{n}$ and $b_n = (-1)^{n+2}$.
+    We see that $b_n = a_{f(n)}$ with $f(n) = n+2$ and $a_n = b_{g(n)}$ with $g(n) = n-2$.
+    \begin{flushright}
+        \qed
+    \end{flushright}
 
     \item Let $(a_n)_{n=0}^\infty$ be a sequence which is not bounded. 
     Show that there exists a subsequence $(b_n)_{n=0}^\infty$ of $(a_n)_{n=0}^\infty$ 
@@ -606,9 +746,116 @@
     (Hint: for each natural number $j$, recursively introduce the quantity 
     \[ n_j := \min\{n \in \mathbb{N}: |a_n| \geq j; n > n_{j-1}\} \] 
     (omitting the condition $n > n_{j-1}$ when $j = 0$), 
-    first explaining why the set $\{n \in \mathbb{N}: |a_n| \geq j; n > n_{j-1}\}$ is non-empty. 
+    first explaining why the set $\{n \in \mathbb{N}: |a_n| \geq j \text{ for } n > n_{j-1}\}$ is non-empty. 
     Then set $b_j := a_{n_j}$.)
+    \\$\textbf{Solution.}$
+    The intuition is that the hint's set construction is similar to ``looking for an increasing sequence'',
+    for instance if we have the subsequence $(b_n) = n$, we can directly construct the sequence $\frac{1}{b_n}$
+    that converges to zero. For doing so, we start with some natural number $j$ and a term $a_j$, and look the ``behaviour'' of 
+    the sequence from there on, and gather the following greater term.
+
+    Given any sequence $(a_n)$ we want to prove that we can find an increasing monotone subsequence.
+    By induction in $j$ we claim that the set
+    \[
+    A_j := \{n \in \mathbb{N}: |a_n| \geq j \text{ for some } n > f(j-1)\}
+    \]
+    is nonempty for any $j \geq 1$.
+    The weaker case in which $f(j) > f(j-1)$ will suffice.
+    \begin{enumerate}
+        \item[\textbf{Basis.}]
+        Let $f(0) = 0$.
+        If $j = 1$ then $A_1 = \{n\in \mathbb{N}: |a_n| \geq 1 \text{ for some } n > f(0)\}$.
+        Since $(a_n)$ is an unbounded sequence, there exists some $n \geq f(0)$ such that
+        $\vert a_n \vert \geq 1$.
+        We conclude that $A_1$ is not empty.
+        
+        \item[\textbf{Hypothesis.}] Assume that for any $j \geq 1$ the set 
+        \[
+            A_j := \{n \in \mathbb{N}: |a_n| \geq j \text{ for some } n > f(j-1)\}
+        \]
+        is nonempty.
+
+        \item[\textbf{Thesis.}] Consider the integer $j+1$, we want to prove that the set 
+        \[
+            A_{j+1} := \{n \in \mathbb{N}: |a_n| \geq j+1 \text{ for some } n > f(j)\}
+        \] 
+        is nonempty.
+        By hypothesis the set $A_j$ is nonempty, we have found ``beforehand'' some pivots $n' \in A_j$ such that $\vert a_{n'}\vert \geq j$ in which look from to.
+        
+        We see that since $(a_n)$ is unbounded there must exist some $n > n'$ such that 
+        $\vert a_{n} \vert \geq j+1$.
+        The only thing that remains checking is that under the former condition 
+        there exists some $n > n'$ such that $n > f(j)$.
+        
+        Suppose that for any $n \geq n'$, if $\vert a_n \vert \geq j+1$ 
+        then $n < f(j)$.
+        Since by hypothesis we have $n > n' > f(j-1)$, then 
+        \[
+        f(j) > n > f(j-1).
+        \]
+        But since $(a_n)$ is not bounded, we can find some $n \geq f(j)$ such that
+        \[
+        \vert a_n \vert \geq j+1.
+        \]
+        % contradiccion debilisima pero creo que sirve
+        
+        We conclude that for $A_{j+1}$ is nonempty.
+    \end{enumerate}
+    \begin{flushright}
+        $\blacksquare$
+    \end{flushright}
+        
+    \begin{claim} We claim that $\min(A_{j+1}) > \min(A_{j})$. To prove this claim we observe
+    that by construction of $A_{j+1}$, for any $n \in A_{j+1}$, 
+    \[
+    n > f(j) \text{ then } n > f(j-1)
+    \]
+    and since 
+    \[
+    \vert a_n \vert \geq j+1 \text{ then } \vert a_n \vert \geq j
+    \]
+    we see that $A_{j+1} \subseteq A_{j}$, but that is not enough yet, we want $A_{j+1} \subset A_j$.
+    We must prove that for any $j \geq 1$ there exists some $k > j$ such that
+    \[
+    A_j \setminus A_k \neq A_j
+    \]
+    therefore we need to show that there exists some $n_k \in A_k$ (that might not be the minimum a priori, but anyways we can delete any $n < n_k$ and the 
+    set will behave the same) such that for some $n_j \in A_j$ with $n_j < n_k$ it holds
+    \[
+    \vert a_{n_k} \vert \geq k \text{ but } \vert a_{n_j} \vert < k.
+    \]
+    Unwrapping $A_j$
+    \[
+    A_j = \{n_j, n_{j+1}, \dots\}
+    \]
+    with $\vert a_{n_j}\vert \geq j$. Consider $k := \max\{|a_{n_j}|, |a_{n_{j+1}}|, \dots \}+1$, 
+    then 
+    \[
+    k > \vert a_{n_j}\vert \text{ for any } n_j \in A_j.
+    \]
+    We then construct $A_k$ with that $k$.
+
+    Hence we conclude that
+    \[
+    \min(A_k) > \min(A_j).
+    \]
+    \end{claim}
+    Then, we can gather all the $A_k$'s recursively finding each $k$ as in the claim
+    \[
+    \min(A_1), \min(A_{k_1}), \min(A_{k_2}), \dots  
+    \]
+    This sequence is then monotone strictly increasing, thus 
+    \(\left(\frac{1}{\min(A_j)}\right)_{j=1}^{\infty}\) is a strictly decreasing sequence.
+    We see that the sequence
+    \[
+    0 < \left\lvert \frac{1}{\min(A_j)} \right\rvert \leq 1
+    \]
+    converges to zero, thus by zero test \(\left(\frac{1}{\min(A_j)}\right)_{j=1}^{\infty}\) converges to zero.
+    \begin{flushright}
+        \qed
+    \end{flushright}
 \end{enumerate}
-\section*{Subsets of the real line}
+\section*{Point set topology}
+
 \section*{Limits and continuity}
 \end{document}
