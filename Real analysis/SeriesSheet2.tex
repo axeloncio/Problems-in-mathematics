@@ -193,15 +193,237 @@
         \qed
     \end{flushright}
 
-    \item \textbf{(Comparison test.)}
+    \item (\textbf{Alternating series test.}) Let $(a_n)_{n=m}^{\infty}$ be a sequence of real numbers which are non-negative and decreasing, 
+    thus $a_n \geq 0$ and $a_n \geq a_{n+1}$ for every $n \geq m$. 
+    Then the series $\sum_{n=m}^{\infty}(-1)^n a_n$ is convergent if and only if the 
+    sequence $a_n$ converges to $0$ as $n \to \infty$.\\
+    $\textbf{Proof.}$
+    \begin{enumerate}
+        \item[$(\implies)$] If \( \sum_{n=m}^{\infty} (-1)^n a_n \) is convergent, then the sequence $((-1)^n a_n)_{n=m}^{\infty}$ converges to zero.
+        By zero test for sequences, we know that the sequence $(\vert (-1)^n a_n \vert)_{n=m}^{\infty}$ converges to zero, and thus $(a_n)_{n=m}^{\infty}$ converges to zero.
 
+        \item[$(\impliedby)$] 
+        Let any partial sum be $S_N = \sum_{n=m}^{N}(-1)^n a_n$.
+        Let $N$ be an even number. We claim that for any $k \geq 0$ 
+        \[
+        S_{N+2k} \leq S_N.
+        \]
+        To prove this claim we induct on $k$.
+        \begin{enumerate}
+            \item[\textbf{Basis.}]
+            If $k = 0$ then 
+            \[
+                S_{N + 2(0)} = S_N \leq S_N. 
+            \]
+
+            \item[\textbf{Hypothesis.}]
+            Assume that for any positive integer $k$ it follows that 
+            \[
+                S_{N+2k} \leq S_{N}.
+            \]
+
+            \item[\textbf{Thesis.}]
+            Our goal is to prove that for the integer $k+1$ it follows that 
+            \[
+                S_{N+2(k+1)} \leq S_N.
+            \]
+            The following chain of equalities will hold, by the recursive definition of a partial sum
+            \[
+                S_{N+2k+2} = S_{N + 2k} + (-1)^{N+2k+1}(a_{N+2k+1}) + (-1)^{N+2k+2}(a_{N+2k+2}).
+            \]
+            Thus since $N$ is even
+            \[
+            S_{N+2k+2} = S_{N+2k} + (-1)(a_{N+2k+1}) + a_{N+2k+2}
+            \]
+            note that $a_{N+2k+2} - a_{N+2k+1} \leq 0$ and thus
+            \[
+            S_{N+2k+2} \leq S_{N+2k}.
+            \]
+            By hypothesis and by transitivity we conclude that $S_{N+2k+2} \leq S_N$.
+        \end{enumerate}
+        Seeing $S_{N+2k}$ as a sequence when varying $k$, the previous result allows us to use it as a lower bound for $S_N$ for any $N \geq m$.
+        Consider now the dual odd sequence $S_{N+2k+1}$, for any $k \geq 0$
+        we observe that 
+        \[
+        S_{N+2k+1} = S_{N+2k} - a_{N+2k+1}
+        \]
+        thus $S_{N+2k+1} \leq S_{N+2k}$.
+        Furthermore we claim that 
+        \[
+        S_{N+2k+1} \geq S_{N+1}.
+        \]
+        To prove this claim, by induction over $k$
+        \begin{enumerate}
+            \item[\textbf{Basis.}]
+            If $k = 0$ then 
+            \[
+            S_{N+1} \geq S_{N+1}
+            \]
+            so this case holds.
+            \item[\textbf{Hypothesis.}]
+            Assume that for any $k \geq 0$ it holds 
+            \[
+            S_{N+2k+1} \geq S_{N+1}.
+            \]
+            \item[\textbf{Thesis.}]
+            Our goal is to prove that for the positive integer $k+1$
+            \[
+            S_{N+2(k+1) + 1 } \geq S_{N+1}
+            \]
+            holds. 
+            To verify this
+            \[
+            S_{N+2k+3} = S_{N+2k+1} + (a_{N+2k+2} - a_{N+2k+3}) \geq S_{N+2k+1}. 
+            \]
+            By inductive hypothesis and by transitivity we get
+            \[
+            S_{N+2k+3} \geq S_{N+2k+1} \geq S_{N+1}.
+            \] 
+        \end{enumerate}
+        We can arrange our sequences into 
+        \[
+        S_{N+2k} \geq S_{N+2k+1} \geq S_{N+1}
+        \]
+        and therefore 
+        \[
+        S_{N} + a_{N+1} \geq S_{N+2k+1} \geq S_{N}-a_{N+1}.
+        \]
+        So 
+        \[
+        \vert S_{N+2k+1} - S_{N} \vert \leq a_{N+1}
+        \]
+        which implies that 
+        \[
+        \left \lvert \sum_{n=N+1}^{2k+1} (-1)^n a_n \right \rvert \leq a_{N+1}.
+        \]
+        Since $a_{N+1}$ converges to zero and is decreasing, for any $\varepsilon > 0$ we can find some $M \geq m$ such that for any $n \geq M$
+        $a_{n} \leq \varepsilon$.
+        By problem (1), since $N+1$ and $2k+1$ are arbitrary, this series converges.
+        \begin{flushright}
+            \qed
+        \end{flushright}
+
+        % Assume $N = 2M$ and let $m = 0$. For $n = 2p$: $0 \leq p \leq M$ and for $n = 2p-1$: $1 \leq p \leq M$.
+        % \[
+        % \sum_{n=0}^{N} (-1)^n a_n = \sum_{p=0}^{M} (-1)^{2p} a_{2p} + \sum_{p=1}^{M} (-1)^{2p-1} a_{2p-1}.
+        % \]
+        % Therefore 
+        % \[
+        % \sum_{n=0}^{N} (-1)^n a_n = \sum_{p=0}^{M} a_{2p} - \sum_{p=1}^{M} a_{2p-1}.
+        % \]
+        % Since $a_{2p-1} \geq a_{2p}$, the partial sum results negative. We see that 
+        % \[
+        % 0 \leq \sum_{p=0}^{M}a_{2p}, \sum_{p=1}^{M}a_{2p-1} \leq Ma_0
+        % \]
+        % then, since $(S_M) = \sum_{p=0}^{M}a_{2p}$ is bounded above by $Ma_0$ and 
+        %\[
+        % = \sum_{p=k}^{M}a_{2p} - a_{2p-1} \leq 0.
+        % \]
+        % Since $(a_n)$ is decreasing 
+        % no funcionan telescopicas por el indice p, que no es 2p
+        % Then, since $(a_n)$ converges to zero, the subsequences $(a_{2p})$ and $(a_{2p-1})$ converge to zero.
+        % Let $k = 1$, by telescoping series
+        % \[
+        % \sum_{p=1}^{M} (a_{2p-1} - a_{2p})
+        % \]
+        % converges to $a_1$
+    \end{enumerate}
+
+    \item \textbf{(Comparison test.)}
+    Let $\sum_{n=m}^{\infty} a_n$ and $\sum_{n=m}^{\infty} b_n$ be two formal series of real numbers, and suppose that $|a_n| \leq b_n$ for all $n \geq m$. Then if $\sum_{n=m}^{\infty} b_n$ is convergent, then $\sum_{n=m}^{\infty} a_n$ is absolutely convergent, and in fact
+    \[
+    \left| \sum_{n=m}^{\infty} a_n \right| \leq \sum_{n=m}^{\infty} |a_n| \leq \sum_{n=m}^{\infty} b_n.
+    \]
+    $\textbf{Proof.}$
+    Since $(b_n)$ is convergent, the partial sum sequence
+    \[
+    (S_N)_{N=m}^{\infty} = \left(\sum_{n=m}^{N} b_n\right)_{N=m}^{\infty} 
+    \]
+    is bounded by a positive real number $K$ since it converges and
+    $0 \leq \vert a_n \vert \leq b_n$.
+
+    The partial sum sequence \( (T_N)_{N=m}^{\infty} =  \left(\sum_{n=m}^{N} \vert a_n\vert \right)_{N=m}^{\infty} \) is a positive terms sum and therefore it is increasing.
+    Notice that each of the partial sums will be less than or equal to the partial sums $S_N$ (over the corresponding indices).
+    
+    Since it is increasing and it is bounded above by $K$ it converges, and it will converge to a smaller limit to that of $S_N$.
+    \begin{flushright}
+        \qed
+    \end{flushright}
     \item \textbf{(Geometric series.)}
     
     \item \textbf{(Cauchy criterion.)}
+    Let $(a_n)_{n=1}^{\infty}$ be a decreasing sequence of non-negative real numbers (so $a_n \geq 0$ and $a_{n+1} \leq a_n$ for all $n \geq 1$). Then the series $\sum_{n=1}^{\infty} a_n$ is convergent if and only if the series
+    \[
+    \sum_{k=0}^{\infty} 2^k a_{2^k} = a_1 + 2a_2 + 4a_4 + 8a_8 + \dotsb
+    \]
+    is convergent.\\
+    $\textbf{Solution.}$
+    \begin{enumerate}
+        \item[$(\implies)$]
+        If $\sum_{n=1}^{\infty}a_n$ converges then $(a_n)$ converges to zero ``from above'', 
+        this means that for any $\varepsilon > 0$ we can find some $n_{\varepsilon} \geq m$ such that $a_n \leq \varepsilon$.
+        % We see that by archimedean property, for any real number $\varepsilon > 0$ we can find some positive integer $N'$ such that $\varepsilon \geq \frac{1}{N'}$ thus 
+        % $\frac{1}{\varepsilon} \leq N'$.
+        Hence, since $(a_n)$ is decreasing
+        \[
+        \sum_{n=0}^{N} a_n \leq a_{0}\varepsilon.
+        \]
+
+        In fact, we also know that since $\sum_{n=1}^{\infty}a_n$ is a positive terms series, there exists some $M \geq 0$ such that
+        for any $N \geq 0$
+        \[
+        \sum_{n=0}^{N} a_n \leq M.
+        \]
+
+        \item[$(\impliedby)$]
+    \end{enumerate}
+
+    \item Let $\sum_{n=0}^\infty a_n$ be an absolutely convergent series of real numbers such that 
+    $\sum_{n=0}^\infty |a_n| = 0$. Show that $a_n = 0$ for every natural number $n$.
+
+    \item Let $\sum_{n=0}^{\infty} a_n$ be an absolutely convergent series of real numbers.  
+    Let $f \colon \mathbb{N} \to \mathbb{N}$ be an increasing function 
+    (i.e., $f(n+1) > f(n)$ for all $n \in \mathbb{N}$).  
+    Show that $\sum_{n=0}^{\infty} a_{f(n)}$ is also an absolutely convergent series. 
+    (Hint: try to compare each partial sum of $\sum_{n=0}^{\infty} a_{f(n)}$ with a 
+    (slightly different) partial sum of $\sum_{n=0}^{\infty} a_n$.)
 
     \item \textbf{(Root test.)}
     
     \item \textbf{(Ratio test.)}
+    
+    
+
+    \item Show that a number \( x \in \mathbb{R} \) is rational 
+    if and only if its \( q \)-ary expression in any base \( q \) is periodic, 
+    that is, from some rank on it consists of periodically repeating digits.
+    \\ 
+    $\textbf{Solution.}$
+    \begin{enumerate}
+        \item[$(\implies)$]
+        If $x \in \mathbb{R}$ is a rational number, then 
+        \item[$(\impliedby)$] 
+        Let $q \geq 1$.
+        Let $\mathbb{N}_{q}$ be the $q$-ary representation of the natural numbers set.
+        If $x$ has a periodic $q$-ary expression, then there exists some 
+        $a \in \mathbb{N}_q$ such that
+        \[
+        x = p + \sum_{n=m}^{\infty} a\left(\frac{1}{q^n} \right) = p + a\sum_{n=m}^{\infty}\left(\frac{1}{q^n}\right).
+        \]
+        in other words, from $m$ all the decimal places become $a$, note that $p$ represents the integer part of $x$.
+        
+        To test out our definition we need to show that for $m,N \in \mathbb{N}_q$ it holds
+        \[
+        x = m/N = p + a\sum_{n=m}^{\infty} \left(\frac{1}{q^n} \right).
+        \]
+        Let $m = pN+Q$, remains showing that $Q/N = a\sum_{n=m}^{\infty} \left(\frac{1}{q^n} \right)$.
+        Since $q \geq 1$, the previous series is geometric, and thus 
+        \[
+        a\sum_{n=m}^{\infty}\frac{1}{q^n} = a \left( \frac{1}{1-\frac{1}{q}} \right) = a \left(\frac{q}{q-1}\right).
+        \]
+        This means that we can choose $N = \frac{q-1}{a}$.
+
+    \end{enumerate}
 
 \end{enumerate}
 \section*{Series classification}
@@ -230,7 +452,11 @@
             S_k(n) = a_{k+1}n^{k+1} + \cdots + a_1n + a_0
             \]
             is a polynomial in \( n \) of degree \( k+1 \).
-            \item[(b)] $\lim_{n\to\infty}\frac{S_{k}(n)}{n^{k+1}}$.
+            \item[(b)] $\lim_{n\to\infty}\frac{S_{k}(n)}{n^{k+1}} = \frac{1}{k+1}$.
+        \end{enumerate}
+        $\textbf{Solution.}$
+        \begin{enumerate}
+            \item By induction over $k$ we claim
         \end{enumerate}
 
         \item Show that  
